@@ -1,5 +1,8 @@
 package de.unicorn.model;
 
-public class ServerPortListener {
+import java.net.ServerSocket;
 
+public class ServerPortListener {
+	private Thread listener;
+	private ServerSocket serverSocket;
 }
