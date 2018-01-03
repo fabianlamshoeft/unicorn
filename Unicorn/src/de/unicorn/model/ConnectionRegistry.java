@@ -1,5 +1,10 @@
 package de.unicorn.model;
 
-public class ConnectionRegistry {
+import java.util.LinkedList;
 
+public class ConnectionRegistry {
+	private LinkedList<Connection> connections;
+	private ConnectionListManager listManager;
+	
+	
 }
