@@ -91,7 +91,16 @@ public class Connection {
 		this.peerServerPort = peerServerPort;
 	}
 	
-	
+	/**
+	 * Sendet eine Disconnect Nachricht an den Kommunikationspartner und 
+	 * schließt eingehende und ausgehende Verbindungen.
+	 */
+	public void close () {
+		out.sendDisconnect();
+		
+		in.close();
+		out.close();
+	}
 	/**
 	 * Stellt fest um was für eine Nachricht es sich handelt und führt abhängig davon die passenden Operationen aus.
 	 * @param message einkommende Nachricht
