@@ -29,7 +29,7 @@ public class SyntaxChecker {
 	 */
 	public static boolean isWellFormedIpAdress(String ref) {
 		
-		String [] b = ref.split(".");
+		String [] b = ref.split("\\.");
 		if (b.length == 4) {
 			
 			for(int i = 0; i < 4; i++) {
@@ -41,7 +41,9 @@ public class SyntaxChecker {
 			return true;
 			
 		}else {
+			
 			return false;
+			
 		}	
 	}
 	/**

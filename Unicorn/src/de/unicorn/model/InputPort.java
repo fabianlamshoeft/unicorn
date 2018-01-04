@@ -14,7 +14,7 @@ import java.net.Socket;
 
 public class InputPort extends Thread{
 	/**
-	 * Socket, über welchen eingehende Nachrichten entpfangen werden.
+	 * Socket, über welchen eingehende Nachrichten empfangen werden.
 	 */
 	private Socket in;
 	/**
@@ -53,7 +53,11 @@ public class InputPort extends Thread{
 				message = reader.readLine();
 				// Das interpretieren der Nachricht übernimmt die Instanz des Connection Objektes, welches 
 				// diesen Listener benutzt
-				conn.interpretIncommingMessage(message);
+				
+				if (message != null) {
+					conn.interpretIncommingMessage(message);
+				}
+				
 			}
 			
 			reader.close();
@@ -70,6 +74,7 @@ public class InputPort extends Thread{
 	public void startListener() {
 		isRunning = true;
 		super.start();
+		System.out.println("Listener gestartet");
 	}
 	/**
 	 * Gibt den InputSocket zurück
@@ -93,7 +98,7 @@ public class InputPort extends Thread{
 		} catch (IOException e) {
 			// ignore
 		}
-		
+		System.out.println("- listener geschlossen");
 	}
 	
 }
