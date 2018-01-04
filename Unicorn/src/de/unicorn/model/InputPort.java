@@ -5,17 +5,43 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class InputPort extends Thread{
+/**
+ * InputPort ist ein Listener für eingehende Nachrichten.
+ * 
+ * @author fabian
+ *
+ */
 
+public class InputPort extends Thread{
+	/**
+	 * Socket, über welchen eingehende Nachrichten entpfangen werden.
+	 */
 	private Socket in;
+	/**
+	 * Referenz auf das Connection Objekt, welches diesen Listener benutzt. 
+	 * Auf diese weise kann das Connection Objekt auf eingehende Nachrichten reagieren. 
+	 * siehe: interpretIncommingMessage
+	 */
 	private Connection conn;
+	/**
+	 * Gibt an, ob der Listener gerade läuft.
+	 */
 	private boolean isRunning = false;
 	
+	
+	/**
+	 * Erzeugt ein InputPort Objekt, welches den in Socket überwacht.
+	 * @param in Socket, der überwacht werden soll.
+	 * @param conn Referenz auf das Connection Objekt, welches den InputListener benutzt. Wird benötigt, um 
+	 * auf eingehende Nachrichten reagieren zu können.
+	 */
 	public InputPort (Socket in, Connection conn) {
 		this.in = in;
 		this.conn = conn;
 	}
-	
+	/**
+	 * Beschreibt das Vorgehen das Überwachungsprozesses
+	 */
 	public void run() {
 		
 		try {
@@ -25,6 +51,8 @@ public class InputPort extends Thread{
 			
 			while (isRunning) {
 				message = reader.readLine();
+				// Das interpretieren der Nachricht übernimmt die Instanz des Connection Objektes, welches 
+				// diesen Listener benutzt
 				conn.interpretIncommingMessage(message);
 			}
 			
@@ -36,12 +64,16 @@ public class InputPort extends Thread{
 		}
 		
 	}
-	
+	/**
+	 * Startet den InputPortListener
+	 */
 	public void startListener() {
 		isRunning = true;
 		super.start();
 	}
-	
+	/**
+	 * Stoppt den InputPortListener und schließt den Socket.
+	 */
 	public void close() {
 		isRunning = false;
 		
