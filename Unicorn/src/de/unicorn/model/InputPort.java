@@ -72,6 +72,14 @@ public class InputPort extends Thread{
 		super.start();
 	}
 	/**
+	 * Gibt den InputSocket zurück
+	 * @return Referenz auf das Socket des InputPort Objektes 
+	 */
+	public Socket getSocket() {
+		return in;
+	}
+	
+	/**
 	 * Stoppt den InputPortListener und schließt den Socket.
 	 */
 	public void close() {
