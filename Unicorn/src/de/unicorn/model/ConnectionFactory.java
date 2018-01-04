@@ -4,7 +4,7 @@ import java.net.Socket;
 
 public class ConnectionFactory {
 	private Connection conn;
-	private Thread thread;
+	private Thread timer;
 	private long creationTime;
 	
 	public ConnectionFactory(String ip, int port, Socket in)
@@ -15,6 +15,11 @@ public class ConnectionFactory {
 	public ConnectionFactory(String name, String ip, int port, Socket in)
 	{
 		
+	}
+	
+	public Connection getConnection()
+	{
+		return conn;
 	}
 	
 	public void create()
