@@ -17,7 +17,7 @@ public class Connection {
 	 *  Nachrichten Historie. Enthält sowohl entpfangende als auch gesendete Nachrichten
 	 *  Einträge entsprechen der Art: <Name><Zeitindex><Nachricht>
 	 */
-	
+
 	private LinkedList<String> history = new LinkedList<String>();
 	/**
 	 *  InputPort für eingehende Nachrichten des Kommunikationspartners
@@ -31,8 +31,13 @@ public class Connection {
 	 *  Zeitpunkt des letzten Pokes
 	 */
 	private long pokeTime;
-	
-	
+	/**
+	 *  IP des verbundenen Peers
+	 */
+	private String ip;
+
+
+
 	public String getName() {
 		return name;
 	}
@@ -72,32 +77,39 @@ public class Connection {
 	public LinkedList<String> getHistory() {
 		return history;
 	}
-	
+
 	public void updatePokeTime() {
 		pokeTime = System.currentTimeMillis();
 	}
-	
+
 	public long getPokeTime() {
 		return pokeTime;
 	}
-	
+
 	public int getPeerServerPort() {
 		return peerServerPort;
 	}
 
 
+	public String getIP()
+	{
+		return ip;
+	}
+
 
 	public void setPeerServerPort(int peerServerPort) {
 		this.peerServerPort = peerServerPort;
 	}
-	
+
+
+
 	/**
 	 * Sendet eine Disconnect Nachricht an den Kommunikationspartner und 
 	 * schließt eingehende und ausgehende Verbindungen.
 	 */
 	public void close () {
 		out.sendDisconnect();
-		
+
 		in.close();
 		out.close();
 	}
@@ -106,42 +118,42 @@ public class Connection {
 	 * @param message einkommende Nachricht
 	 */
 	public void interpretIncommingMessage(String message) {
-		
+
 		if (message.startsWith("POKE")) {
-			
+
 			String [] pokeArguments = message.split(" ");
 			// Poke Nachricht auf Gültigkeit prüfen. Falls ungültige Nachricht: ignorieren
 			if (pokeArguments.length == 4 && SyntaxChecker.isWellFormedSessionName(pokeArguments[1]) 
 					&& SyntaxChecker.isWellFormedIpAdress(pokeArguments[2]) && SyntaxChecker.isNummeric(pokeArguments[3])) {
-				
+
 				// TODO: Reagieren
-				
+
 			}
-			
-			
+
+
 		}else if (message.startsWith("MESSAGE")) {
-			
+
 			String [] messageArguments = message.split(" ");
-			
+
 			// Message Nachricht auf Gültigkeit prüfen. Falls ungültige Nachricht: ignorieren
-			
+
 			if (messageArguments.length >= 4 && SyntaxChecker.isWellFormedSessionName(messageArguments[1]) 
 					&& SyntaxChecker.isWellFormedIpAdress(messageArguments[2]) && SyntaxChecker.isNummeric(messageArguments[3])) {
-				
+
 				// Überprüfen, ob der angegebene Peer in der Pokenachricht der Verbindung entspricht, welche über diesen Port senden darf.
 				// Falls ungültig: Nachricht ignorieren
-				
-				
+
+
 				if (messageArguments[1].equals(name) && messageArguments[2].equals(in.getSocket().getInetAddress().getHostAddress())
 						&& Integer.parseInt(messageArguments[3]) == peerServerPort) {
-					
+
 					// Ermitteln, ab welchem Index die Nachricht beginnt...
 					String msg;
 					int index = 0;
 					for (int i = 0; i < 4; i++) {
 						index = index + messageArguments[i].length() + 1;
 					}
-					
+
 					msg = message.substring(index);
 					// Msg zur History hinzufügen...
 					history.add(name + ": " + msg);
@@ -150,27 +162,27 @@ public class Connection {
 				}else {
 					System.out.println("!!!ignore: Sender Daten fehlerhaft!!!");
 				}
-				
+
 			}else {
 				System.out.println("!!!ignore: fehlerhafte Syntax der Messagenachricht!!!");
 			}
 		}else if (message.startsWith("DISCONNECT")) {
-			
+
 			String [] pokeArguments = message.split(" ");
 			// Disconnect Nachricht auf Gültigkeit prüfen. Falls ungültige Nachricht: ignorieren
 			if (pokeArguments.length == 4 && SyntaxChecker.isWellFormedSessionName(pokeArguments[1]) 
 					&& SyntaxChecker.isWellFormedIpAdress(pokeArguments[2]) && SyntaxChecker.isNummeric(pokeArguments[3])) {
-				
+
 				// TODO: Reagieren
-				
+
 			}
 		}else {
 			System.out.println("!!!ignore: Nachrichtentyp nicht bekannt!!!");
 		}
-		
+
 	}
 
 
 
-	
+
 }
