@@ -2,13 +2,16 @@ package de.unicorn.model;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 /**
  * OutputPort verwaltet den Socket, über welchen Nachrichten gesendet werden sollen und stellt hiefür nach 
  * außen eine Reihe von Methoden zur Verfügung, mit welchen Nachrichten gemäß den Protokollvorschriften 
  * versendet werden können.
  * @author fabian
+ * 
  *
  */
 public class OutputPort {
@@ -42,6 +45,14 @@ public class OutputPort {
 	 * Sendet einen Poke des eigenen Peers
 	 */
 	public void sendPoke() {
+		try {
+			String pokeMsg = "POKE " + ConnectionManager.getSessionName() + " " + InetAddress.getLocalHost().getHostAddress() + " " + Integer.toString(ConnectionManager.getServerListenerPort());
+			writer.println(pokeMsg);
+			writer.flush();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	/**
@@ -62,13 +73,27 @@ public class OutputPort {
 	 * @param message Nachricht, die gesendet werden soll
 	 */
 	public void sendMessage(String message) {
-		
+		try {
+			String messageMsg = "MESSAGE " + ConnectionManager.getSessionName() + " " + InetAddress.getLocalHost().getHostAddress() + " " + Integer.toString(ConnectionManager.getServerListenerPort()) + " " + message;
+			writer.println(messageMsg);
+			writer.flush();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Sendet eine Disconnect Nacricht mit den Daten des eigenen Peers
 	 */
 	public void sendDisconnect() {
-		
+		try {
+			String disconnectMsg = "DISCONNECT " + ConnectionManager.getSessionName() + " " + InetAddress.getLocalHost().getHostAddress() + " " + Integer.toString(ConnectionManager.getServerListenerPort());
+			writer.println(disconnectMsg);
+			writer.flush();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Sendet eine Disconnect Nachricht mit den Daten des angegebenen Peers
