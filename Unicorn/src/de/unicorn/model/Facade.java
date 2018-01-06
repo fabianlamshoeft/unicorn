@@ -20,8 +20,9 @@ public class Facade {
 	 * 
 	 * @param sessionName SessionName der aktuellen Session
 	 * @param serverPort Port, über welchen man erreichbar sein will.
+	 * @throws Exception Falls ein Fehler beim sertellen des ServerPortListeners auftaucht. 
 	 */
-	public static void startUp(String sessionName, int serverPort) {
+	public static void startUp(String sessionName, int serverPort) throws Exception{
 		
 	}
 	/**
