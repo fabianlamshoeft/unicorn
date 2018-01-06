@@ -6,7 +6,16 @@ public class ConnectionManager {
 	private LinkedList<ConnectionFactory> factories;
 	private ServerPortListener serverPortListener;
 	private String sessionName;
+	private int ServerListenerPort;
 	
+	public int getServerListenerPort() {
+		return ServerListenerPort;
+	}
+
+	public void setServerListenerPort(int serverListenerPort) {
+		ServerListenerPort = serverListenerPort;
+	}
+
 	public void addFactory(ConnectionFactory fac)
 	{
 		factories.add(fac);
