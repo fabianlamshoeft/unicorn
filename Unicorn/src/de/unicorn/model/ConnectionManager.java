@@ -27,7 +27,7 @@ public class ConnectionManager {
 	}
 	
 	/**
-	 * Gibt zurück, ob sich eine Connection (mit Name, IP und Port)
+	 * Gibt zurï¿½ck, ob sich eine Connection (mit Name, IP und Port)
 	 * aktuell in einer Factory befindet, d.h. aktuell erstellt wird.
 	 * 
 	 * @param name
@@ -59,7 +59,7 @@ public class ConnectionManager {
 	
 	/**
 	 * Durchsucht die Factories und gibt die Factory mit der Connection
-	 * (mit Name, IP und Port) zurück.
+	 * (mit Name, IP und Port) zurï¿½ck.
 	 * 
 	 * @param name
 	 * @param ip
@@ -73,6 +73,14 @@ public class ConnectionManager {
 			
 		}
 		return null;
+	}
+
+	public String getSessionName() {
+		return sessionName;
+	}
+
+	public void setSessionName(String sessionName) {
+		this.sessionName = sessionName;
 	}
 	
 }
