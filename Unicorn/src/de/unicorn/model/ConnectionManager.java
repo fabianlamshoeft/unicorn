@@ -5,15 +5,28 @@ import java.util.LinkedList;
 public class ConnectionManager {
 	private LinkedList<ConnectionFactory> factories;
 	private ServerPortListener serverPortListener;
-	private String sessionName;
-	private int ServerListenerPort;
+	private static String sessionName;
+	private static int serverListenerPort;
 	
-	public int getServerListenerPort() {
-		return ServerListenerPort;
+	
+	/*
+	 *\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	 * \\\\	Simon, alle Attribute und Methoden des ConnectionManagers müssen statisch sein,	\\\\
+	 * \\\\	sonst komme ich von meinen Klassen aus nicht an deine Methoden dran :D			\\\\
+	 * \\\\	Steht unter anderem auch im UML Diagramm ;)										\\\\
+	 * \\\\																					\\\\
+	 * \\\\	Viele Grüße																		\\\\
+	 * \\\\	Fabian :)																		\\\\
+	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	 */
+	
+	
+	public static int getServerListenerPort() {
+		return serverListenerPort;
 	}
 
-	public void setServerListenerPort(int serverListenerPort) {
-		ServerListenerPort = serverListenerPort;
+	public static void setServerListenerPort(int serverListenerP) {
+		serverListenerPort = serverListenerP;
 	}
 
 	public void addFactory(ConnectionFactory fac)
@@ -84,12 +97,12 @@ public class ConnectionManager {
 		return null;
 	}
 
-	public String getSessionName() {
+	public static String getSessionName() {
 		return sessionName;
 	}
 
-	public void setSessionName(String sessionName) {
-		this.sessionName = sessionName;
+	public static void setSessionName(String sessionN) {
+		sessionName = sessionN;
 	}
 	
 }
