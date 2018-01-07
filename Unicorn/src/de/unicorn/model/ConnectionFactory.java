@@ -2,6 +2,15 @@ package de.unicorn.model;
 
 import java.net.Socket;
 
+
+/**
+ * Ist zuständig für die Erstellung einer Connection bei eingehendem als auch ausgehendem ConnectionPoke.
+ * 
+ * 
+ * @author Simon
+ *
+ */
+
 public class ConnectionFactory {
 	private Connection conn;
 	private Thread timer;
