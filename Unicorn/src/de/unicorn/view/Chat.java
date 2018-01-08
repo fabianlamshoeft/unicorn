@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import de.unicorn.controller.LoginController;
+
 public class Chat extends JFrame {
 
 	public Chat() throws HeadlessException {
@@ -30,7 +32,7 @@ public class Chat extends JFrame {
 		setUpElements();
 	}
 	
-	static void NewScreen() {
+	public void newScreen() {
 		JFrame window = new Chat();
 		window.pack();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

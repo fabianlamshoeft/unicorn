@@ -12,18 +12,23 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import de.unicorn.controller.LoginController;
+
 public class Login{
 
-	private static Toolkit t;
-	private static int x = 0;
-	private static int y = 0;
-	private static int width = 400;
-	private static int hight = 300;
-
-
-	public static void main (String[] args) {
-		JFrame window = new JFrame();
-		
+	private Toolkit t;
+	private int x = 0;
+	private int y = 0;
+	private int width = 400;
+	private int hight = 300;
+	private LoginController controller = new LoginController(this);
+	
+	
+	public JTextField textfieldName = new JTextField(10);
+	public JTextField textfieldPort = new JTextField(10);
+	public JFrame window = new JFrame();
+	
+	public Login() {
 		t = Toolkit.getDefaultToolkit(); 
 		Dimension d = t.getScreenSize(); 
 		x = (int) (d.getWidth() - width) / 2 ;				// d.getWidth() gesamte Bildschirmbreite
@@ -42,14 +47,10 @@ public class Login{
 		
 	}
 	
-	private static void setupContent(JFrame window) {
+	private void setupContent(JFrame window) {
 		JPanel content = new JPanel(); 
 		JLabel labelName = new JLabel("<html><b>Name</b></html>");	// <font color = "red">
-		JTextField textfieldName = new JTextField(10);
 		JLabel labelPort = new JLabel("<html><b>Port</b></html>");
-		JTextField textfieldPort = new JTextField(10);
-		JLabel labelIP = new JLabel("<html><b>IP</b></html>");
-		JTextField textfieldIP = new JTextField(10);
 		JButton button = new JButton("Ok");
 		
 		SpringLayout layout = new SpringLayout();
@@ -81,25 +82,11 @@ public class Login{
 				90,
                 SpringLayout.NORTH, content);
 		
-		layout.putConstraint(SpringLayout.WEST, labelIP,
-				100,
-                SpringLayout.WEST, content);
-		layout.putConstraint(SpringLayout.NORTH, labelIP,
-				120,
-                SpringLayout.NORTH, content);
-		
-		layout.putConstraint(SpringLayout.WEST, textfieldIP,
-				140,
-                SpringLayout.WEST, content);
-		layout.putConstraint(SpringLayout.NORTH, textfieldIP,
-                120,
-                SpringLayout.NORTH, content);
-		
 		layout.putConstraint(SpringLayout.WEST, button,
 				280,
                 SpringLayout.WEST, content);
 		layout.putConstraint(SpringLayout.NORTH, button,
-                120,
+                90,
                 SpringLayout.NORTH, content);
 		
         content.setLayout(layout);
@@ -108,8 +95,6 @@ public class Login{
 		content.add(textfieldName);
 		content.add(labelPort);
 		content.add(textfieldPort);
-		content.add(labelIP);
-		content.add(textfieldIP);
 		content.add(button);
 		
 		window.setContentPane(content);
@@ -118,18 +103,9 @@ public class Login{
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Name: " + textfieldName.getText());
-				System.out.println("Port: " + textfieldPort.getText());
-				System.out.println("IP:   " + textfieldIP.getText());
-				textfieldName.setText("");										//Inhalt von textfield auf "" setzen
-				textfieldPort.setText("");
-				textfieldIP.setText("");
 				
-				Chat neuesFenster = new Chat();
-				neuesFenster.NewScreen();
+				controller.buttonOK();
 				
-				window.setVisible(false);
 			}
 		});
 		
