@@ -135,4 +135,12 @@ public class Facade {
 			it.next().update();
 		}
 	}
+	
+	public static String getIp() {
+		return SessionManager.getIpAdress();
+	}
+	
+	public static int getPort() {
+		return SessionManager.getServerListenerPort();
+	}
 }
