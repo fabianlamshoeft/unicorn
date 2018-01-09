@@ -34,17 +34,19 @@ public class ConnectionListManager extends Thread{
 				while (it.hasNext()) {
 					conn = it.next();
 					if ((System.currentTimeMillis() - conn.getPokeTime())>= 60000) {
+						System.out.println("Verbindung zu lange inaktiv! NAME: " + conn.getName());
 						conn.close();
 						ConnectionRegistry.remove(conn);
 						listHasChanged = true;
 					}else {
 						conn.getOut().sendPoke();
+						System.out.println("Sende Poke an: " + conn.getName());
 					}
 				}
 				if (listHasChanged) {
 					//TODO: Facade benachrichtigen
 				}
-				
+				lastUpdate = System.currentTimeMillis();
 			}
 			try {
 				Thread.sleep(250);

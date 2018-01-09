@@ -24,6 +24,7 @@ public class ConnectionRegistry {
 	
 	public static void addConnection(Connection conn) {
 		connections.add(conn);
+		System.out.println("Neu Verbindung in Liste eingetragen: " + conn.getName());
 	}
 	
 	/**
@@ -71,6 +72,7 @@ public class ConnectionRegistry {
 	 */
 	public static void remove(Connection conn) {
 		connections.remove(conn);
+		System.out.println("Verbindung aus der Liste entfernt: " + conn.getName());
 	}
 	
 	/**

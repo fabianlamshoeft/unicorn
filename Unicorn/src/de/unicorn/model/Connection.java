@@ -76,6 +76,7 @@ public class Connection {
 	}
 
 	public void updatePokeTime() {
+		System.out.println("Update Poke Time: " + getName());
 		pokeTime = System.currentTimeMillis();
 	}
 
@@ -111,6 +112,7 @@ public class Connection {
 
 		in.close();
 		out.close();
+		System.out.println("Verbindung: " + getName() + " geschlossen!");
 	}
 	/**
 	 * Stellt fest um was für eine Nachricht es sich handelt und führt abhängig davon die passenden Operationen aus.
@@ -119,13 +121,12 @@ public class Connection {
 	public void interpretIncommingMessage(String message) {
 
 		if (message.startsWith("POKE")) {
-
 			String [] pokeArguments = message.split(" ");
 			// Poke Nachricht auf Gültigkeit prüfen. Falls ungültige Nachricht: ignorieren
 			if (pokeArguments.length == 4 && SyntaxChecker.isWellFormedSessionName(pokeArguments[1]) 
 					&& SyntaxChecker.isWellFormedIpAdress(pokeArguments[2]) && SyntaxChecker.isNummeric(pokeArguments[3])) {
 				
-				if (pokeArguments[1].equals(name) && pokeArguments[2].equals(ip) && Integer.parseInt(pokeArguments[4]) == peerServerPort) {
+				if (pokeArguments[1].equals(name) && pokeArguments[2].equals(ip) && Integer.parseInt(pokeArguments[3]) == peerServerPort) {
 					// Poke Nachricht entspricht den Daten des Kommunikationspartners: PokeTime akutalisieren
 					
 					updatePokeTime();
@@ -185,11 +186,11 @@ public class Connection {
 					System.out.println("NACHRICHT EINGEGANGEN: " + name + ": " + msg);
 					Facade.notifyObservers();
 				}else {
-					System.out.println("!!!ignore: Sender Daten fehlerhaft!!!");
+					
 				}
 
 			}else {
-				System.out.println("!!!ignore: fehlerhafte Syntax der Messagenachricht!!!");
+				
 			}
 		}else if (message.startsWith("DISCONNECT")) {
 
@@ -206,6 +207,7 @@ public class Connection {
 						&& Integer.parseInt(discArguments[3]) == peerServerPort) {
 					ConnectionRegistry.getOnwardTransmitter().forwardDisconnectMessage(this, discArguments[1], discArguments[2], Integer.parseInt(discArguments[3]));
 					close();
+					System.out.println("DISCONNECT von: " + discArguments[1]);
 					ConnectionRegistry.remove(this);
 				}else {
 					if (ConnectionRegistry.hasConnection(discArguments[2], Integer.parseInt(discArguments[3]))){
@@ -218,7 +220,7 @@ public class Connection {
 
 			}
 		}else {
-			System.out.println("!!!ignore: Nachrichtentyp nicht bekannt!!!");
+			
 		}
 
 	}

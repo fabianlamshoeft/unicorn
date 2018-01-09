@@ -28,7 +28,6 @@ public class Facade {
 		SessionManager.setServerListenerPort(serverPort);
 		SessionManager.setSessionName(sessionName);
 		SessionManager.startServerPortListener();
-		System.out.println("nun listmanager");
 		ConnectionRegistry.getListManager().startListManager();
 	}
 	/**
@@ -107,8 +106,8 @@ public class Facade {
 	 */
 	public static void exit() {
 		System.out.println("beenden ...");
-		disconnect();
 		SessionManager.stopServerPortListener();
+		disconnect();
 		ConnectionRegistry.getListManager().stopListManager();
 		System.out.println("alles zu");
 	}

@@ -20,8 +20,7 @@ public class ServerPortListener extends Thread{
 				
 				BufferedReader reader = new BufferedReader(new InputStreamReader(incommingRequest.getInputStream()));
 				String message = reader.readLine();
-				System.out.println("Nachricht: " + message);
-				reader.close();
+				//reader.close();
 				
 				if (message.startsWith("POKE")) {
 
@@ -34,15 +33,17 @@ public class ServerPortListener extends Thread{
 						
 						if (ConnectionRegistry.hasConnection(pokeArguments[2], Integer.parseInt(pokeArguments[3]))) {
 							// PokeTime update
-							
+							System.out.println("ServerPortListener: POKE Update");
 							ConnectionRegistry.getConnection(pokeArguments[1], pokeArguments [2], Integer.parseInt(pokeArguments[3])).updatePokeTime();
 							
 						}else if (SessionManager.connectionInFactory(pokeArguments[2], Integer.parseInt(pokeArguments[3]))) {
 							// Rest Infos für Factory zum erstellen übergeben
+							System.out.println("ServerPortListener: Poke Informationen ergänzen...");
 							SessionManager.getFactory(pokeArguments[2], Integer.parseInt(pokeArguments[3])).create(pokeArguments[1], incommingRequest);
 							
 						}else {
 							// Neue Factory hinzufügen
+							System.out.println("1. ServerPortListener: Neues Poke! Verbindung hinzufügen!");
 							SessionManager.addFactory(new ConnectionFactory(pokeArguments[1], pokeArguments [2], Integer.parseInt(pokeArguments[3]),incommingRequest));
 							
 						}
@@ -54,8 +55,10 @@ public class ServerPortListener extends Thread{
 			
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 		}finally {
 			System.out.println("Schließe Socket...");
+			
 			try {
 				serverSocket.close();
 			} catch (Exception e) {}

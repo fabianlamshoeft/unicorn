@@ -12,14 +12,15 @@ public class ConnectionFactory {
 	private long creationTime;
 	
 	public ConnectionFactory(String ip, int port, Socket out)
-	{
+	{	
+		System.out.println("Factory mit Usereingabe");
 		creationTime = System.currentTimeMillis();
 		timer = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				while (System.currentTimeMillis() - creationTime >= 5000 && !pokeArrived) {
+				while (System.currentTimeMillis() - creationTime <= 5000 && !pokeArrived) {
 					// warten
 					try {
 						Thread.sleep(100);
@@ -32,7 +33,7 @@ public class ConnectionFactory {
 				timeout = !pokeArrived;
 				if (timeout) {
 					// Factory zerstören
-					
+					System.out.println("Factory timeout!");
 					distroy();
 				}
 				
@@ -51,6 +52,7 @@ public class ConnectionFactory {
 	
 	public ConnectionFactory(String name, String ip, int port, Socket in)
 	{
+		System.out.println("Factory mit eingeganngenden POKE");
 		conn = new Connection();
 		conn.setIn(new InputPort(in, conn));
 		conn.setName(name);
@@ -85,8 +87,10 @@ public class ConnectionFactory {
 	
 	public void create()
 	{
-		
+		conn.updatePokeTime();
+		conn.getIn().startListener();
 		ConnectionRegistry.addConnection(conn);
+		System.out.println("Factory: Erstelle sofort");
 		distroy();
 		
 	}
@@ -99,19 +103,17 @@ public class ConnectionFactory {
 			// Restliche Informationen eintragen
 			conn.setIn(new InputPort(in, conn));
 			conn.setName(name);
+			conn.updatePokeTime();
+			conn.getIn().startListener();
 			
 			//Verbindung der Registry hinzufügen
 			ConnectionRegistry.addConnection(conn);
 			
 			// Factory zerstören
 			
-			try {
-				timer.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				timer.interrupt();
 			
+			System.out.println("Factory: Erstellt mit wartezeit auf Rückpoke");
 			distroy();
 			
 		}

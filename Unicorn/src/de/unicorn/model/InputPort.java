@@ -56,7 +56,6 @@ public class InputPort extends Thread{
 				
 				if (message != null) {
 					conn.interpretIncommingMessage(message);
-					System.out.println("Da is was...");
 				}
 				
 			}
@@ -91,15 +90,21 @@ public class InputPort extends Thread{
 	public void close() {
 		isRunning = false;
 		
-		try {
-			super.join();
-			in.close();
-		} catch (InterruptedException e) {
-			// ignore
-		} catch (IOException e) {
-			// ignore
-		}
-		System.out.println("- listener geschlossen");
+		
+			super.interrupt();
+			
+			try {
+				
+				if (!in.isClosed()) {
+					in.close();
+				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
 	}
 	
 }
