@@ -29,7 +29,7 @@ public class LoginController {
 				
 				login.window.setVisible(false);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Bitte neuen Port angeben.");
+				JOptionPane.showMessageDialog(null, "Der Port muss eine Zahl zwischen 1024 und 49151");
 			}
 		}
 		else {

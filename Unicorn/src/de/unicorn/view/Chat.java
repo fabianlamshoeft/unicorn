@@ -2,6 +2,7 @@ package de.unicorn.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
@@ -10,6 +11,7 @@ import java.awt.Toolkit;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -42,16 +44,27 @@ public class Chat extends JFrame {
 	
 	public void newScreen() {
 		JFrame window = new Chat();
-		Toolkit t = Toolkit.getDefaultToolkit(); 
-		Dimension d = t.getScreenSize(); 
-		int x = (int) (d.getWidth() - WIDTH) / 2 ;				// d.getWidth() gesamte Bildschirmbreite
-		int y = (int) (d.getHeight() - HEIGHT) / 2;				// Zentrum des Bildschirms berechnen
+		
+		
+		
+		//!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!
 		
 		
 		window.setTitle("Chat");	
-		window.setSize(new Dimension(1000, 750));
+		//window.setSize(new Dimension(1000, 750));
 		window.setMinimumSize(new Dimension(400, 300));
-		window.setBounds(x, y, 1000, 750);
+		
+		
+		Toolkit t = Toolkit.getDefaultToolkit(); 
+		Dimension d = t.getScreenSize(); 
+		int x = (int) (d.getWidth() - 1000) / 2 ;				// d.getWidth() gesamte Bildschirmbreite
+		//int y = (int) (d.getHeight() - 750) / 2;					// Zentrum des Bildschirms berechnen
+		window.setBounds(x, 0, 1000, 750);
+		
 		//window.pack();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
@@ -66,8 +79,14 @@ public class Chat extends JFrame {
 		
 		JTextField textFeld = new JTextField(30);
 		//textFeld.setSize(textFeld.getPreferredSize());
-		//textFeld.setForeground(Color.decode("1E647F"));
+		Color c = Color.decode("0x1E647F");
+		textFeld.setForeground(c);
 		textFeld.requestFocusInWindow();
+		textFeld.setSize(new Dimension(700, 30));
+		textFeld.setPreferredSize(new Dimension(700, 30));
+		textFeld.setMinimumSize(new Dimension(700, 30));
+		textFeld.setMaximumSize(new Dimension(700, 30));
+		
 		content.add(textFeld, BorderLayout.SOUTH); 
 		
 		JButton btnConnect 		= new JButton("CONNECT <IP><Port>");
@@ -75,32 +94,33 @@ public class Chat extends JFrame {
 		JButton btnExit 			= new JButton("EXIT");
 		JButton btnM	 			= new JButton("M <Name><Text>");
 		JButton btnMx 			= new JButton("MX <IP><Port><Text>");
-		btnConnect.setSize(new Dimension(150,20));
-		btnConnect.setPreferredSize(new Dimension(150,20));
-		btnConnect.setMinimumSize(new Dimension(150,20));
-		btnConnect.setMaximumSize(new Dimension(150,20));
-		btnDisconnect.setSize(new Dimension(150,20));
-		btnDisconnect.setPreferredSize(new Dimension(150,20));
-		btnDisconnect.setMinimumSize(new Dimension(150,20));
-		btnDisconnect.setMaximumSize(new Dimension(150,20));
-		btnExit.setPreferredSize(new Dimension(150, 20));
-		btnExit.setPreferredSize(new Dimension(150,20));
-		btnExit.setMinimumSize(new Dimension(150,20));
-		btnExit.setMaximumSize(new Dimension(150,20));
-		btnM.setPreferredSize(new Dimension(150, 20));
-		btnM.setPreferredSize(new Dimension(150,20));
-		btnM.setMinimumSize(new Dimension(150,20));
-		btnM.setMaximumSize(new Dimension(150,20));
-		btnMx.setPreferredSize(new Dimension(150,20));
-		btnMx.setPreferredSize(new Dimension(150,20));
-		btnMx.setMinimumSize(new Dimension(150,20));
-		btnMx.setMaximumSize(new Dimension(150,20));
-		
+		btnConnect.setSize(new Dimension(200,20));
+		btnConnect.setPreferredSize(new Dimension(200,20));
+		btnConnect.setMinimumSize(new Dimension(200,20));
+		btnConnect.setMaximumSize(new Dimension(200,20));
+		btnDisconnect.setSize(new Dimension(200,20));
+		btnDisconnect.setPreferredSize(new Dimension(200,20));
+		btnDisconnect.setMinimumSize(new Dimension(200,20));
+		btnDisconnect.setMaximumSize(new Dimension(200,20));
+		btnExit.setPreferredSize(new Dimension(200, 20));
+		btnExit.setPreferredSize(new Dimension(200,20));
+		btnExit.setMinimumSize(new Dimension(200,20));
+		btnExit.setMaximumSize(new Dimension(200,20));
+		btnM.setPreferredSize(new Dimension(200, 20));
+		btnM.setPreferredSize(new Dimension(200,20));
+		btnM.setMinimumSize(new Dimension(200,20));
+		btnM.setMaximumSize(new Dimension(200,20));
+		btnMx.setPreferredSize(new Dimension(200,20));
+		btnMx.setPreferredSize(new Dimension(200,20));
+		btnMx.setMinimumSize(new Dimension(200,20));
+		btnMx.setMaximumSize(new Dimension(200,20));
 		btnConnect.setToolTipText("Sende eine POKE-Nachricht mit den eigenen Daten an den unter IP/Port erreichbaren Peer." );
 		btnDisconnect.setToolTipText("Sende eine DISCONNECT-Nachricht mit den eigenen Daten an alle aktiven Peers und entferne diese aus der Peer-Liste.");
 		btnExit.setToolTipText("Sende eine DISCONNECT-Nachricht mit den eigenen Daten an alle bekannten Peers und beende den Client.");
 		btnM.setToolTipText("Sende Text als MESSAGE -Nachricht an alle bekannten Peers, die sich mit Name identizieren.");
 		btnMx.setToolTipText("Sende Text als MESSAGE -Nachricht an den durch IP und Port eindeutig identizierten Peer.");
+		
+		
 		
 		JLabel ipAdresse = new JLabel("<html>Meine IP-Adresse: </html>");
 		//ipAdresse.setSize(ipAdresse.getPreferredSize());
@@ -108,10 +128,10 @@ public class Chat extends JFrame {
 		ipAdresse.setBackground(Color.decode("#ECE198"));
 		content.add(ipAdresse, BorderLayout.NORTH);
 		
-		JPanel peers = new JPanel();
+		JPanel links = new JPanel();
 		//peers.setSize(peers.getPreferredSize());
-		peers.setBackground(Color.decode("#B2CCDE"));
-		content.add(peers, BorderLayout.WEST);
+		links.setBackground(Color.decode("#B2CCDE"));
+		content.add(links, BorderLayout.WEST);
 		
 		JPanel chatbereich = new JPanel();
 		//chatbereich.setSize(chatbereich.getPreferredSize());
@@ -119,19 +139,26 @@ public class Chat extends JFrame {
 		chatbereich.setBackground(Color.decode("#B2CCDE"));
 		content.add(chatbereich, BorderLayout.CENTER);
 		chatbereich.setLayout(new BoxLayout(chatbereich, BoxLayout.Y_AXIS));
+		//chatbereich.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		chatbereich.add(Box.createVerticalGlue());
 		chatbereich.add(new JLabel("Nachrichten"));
 		chatbereich.add(textFeld);
 		
-		JPanel befehle = new JPanel();
-		befehle.setSize(befehle.getPreferredSize());
-		befehle.setBackground(Color.decode("#B2CCDE"));
-		content.add(befehle, BorderLayout.EAST);
-		befehle.setLayout(new BoxLayout(befehle, BoxLayout.Y_AXIS));
-		befehle.add(btnConnect);
-		befehle.add(btnDisconnect);
-		befehle.add(btnExit);
-		befehle.add(btnM);
-		befehle.add(btnMx);
+		JPanel rechts = new JPanel();
+		rechts.setSize(rechts.getPreferredSize());
+		rechts.setBackground(Color.decode("#B2CCDE"));
+		content.add(rechts, BorderLayout.EAST);
+		rechts.setLayout(new BoxLayout(rechts, BoxLayout.Y_AXIS));
+		rechts.add(btnConnect);
+		rechts.add(Box.createVerticalStrut(5));
+		rechts.add(btnDisconnect);
+		rechts.add(Box.createVerticalStrut(5));
+		rechts.add(btnExit);
+		rechts.add(Box.createVerticalStrut(5));
+		rechts.add(btnM);
+		rechts.add(Box.createVerticalStrut(5));
+		rechts.add(btnMx);
+		rechts.add(Box.createVerticalStrut(5));
 		
 		
 		
