@@ -2,6 +2,8 @@ package de.unicorn.testcases;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import javax.swing.JFrame;
+
 import org.junit.jupiter.api.Test;
 
 import de.unicorn.view.Chat;
@@ -19,5 +21,4 @@ class Oberflächentest1 {
 			e.printStackTrace();
 		}
 	}
-
 }

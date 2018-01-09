@@ -38,7 +38,7 @@ public class Login{
 		window.setBounds(x, y, width, hight);				// Position festlegen
 		
 		window.setSize(400, 300);
-		window.setMinimumSize(new Dimension(200, 150));
+		window.setMinimumSize(new Dimension(400, 300));
 		setupContent(window);
 																// ganze Anwendung schließt, wenn Eigenschaft gesetzt ist
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	// EXIT_ON_CLOSE nicht immer benutzen!!!
@@ -52,6 +52,8 @@ public class Login{
 		JLabel labelName = new JLabel("<html><b>Name</b></html>");	// <font color = "red">
 		JLabel labelPort = new JLabel("<html><b>Port</b></html>");
 		JButton button = new JButton("Ok");
+		
+		textfieldName.requestFocusInWindow();
 		
 		SpringLayout layout = new SpringLayout();
 		layout.putConstraint(SpringLayout.WEST, labelName,
