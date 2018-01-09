@@ -76,10 +76,26 @@ public class Chat extends JFrame {
 		JButton btnM	 			= new JButton("M <Name><Text>");
 		JButton btnMx 			= new JButton("MX <IP><Port><Text>");
 		btnConnect.setSize(new Dimension(150,20));
+		btnConnect.setPreferredSize(new Dimension(150,20));
+		btnConnect.setMinimumSize(new Dimension(150,20));
+		btnConnect.setMaximumSize(new Dimension(150,20));
 		btnDisconnect.setSize(new Dimension(150,20));
+		btnDisconnect.setPreferredSize(new Dimension(150,20));
+		btnDisconnect.setMinimumSize(new Dimension(150,20));
+		btnDisconnect.setMaximumSize(new Dimension(150,20));
 		btnExit.setPreferredSize(new Dimension(150, 20));
+		btnExit.setPreferredSize(new Dimension(150,20));
+		btnExit.setMinimumSize(new Dimension(150,20));
+		btnExit.setMaximumSize(new Dimension(150,20));
 		btnM.setPreferredSize(new Dimension(150, 20));
+		btnM.setPreferredSize(new Dimension(150,20));
+		btnM.setMinimumSize(new Dimension(150,20));
+		btnM.setMaximumSize(new Dimension(150,20));
 		btnMx.setPreferredSize(new Dimension(150,20));
+		btnMx.setPreferredSize(new Dimension(150,20));
+		btnMx.setMinimumSize(new Dimension(150,20));
+		btnMx.setMaximumSize(new Dimension(150,20));
+		
 		btnConnect.setToolTipText("Sende eine POKE-Nachricht mit den eigenen Daten an den unter IP/Port erreichbaren Peer." );
 		btnDisconnect.setToolTipText("Sende eine DISCONNECT-Nachricht mit den eigenen Daten an alle aktiven Peers und entferne diese aus der Peer-Liste.");
 		btnExit.setToolTipText("Sende eine DISCONNECT-Nachricht mit den eigenen Daten an alle bekannten Peers und beende den Client.");
