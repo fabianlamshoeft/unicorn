@@ -76,7 +76,7 @@ public class Connection {
 	}
 
 	public void updatePokeTime() {
-		System.out.println("Update Poke Time: " + getName());
+//		System.out.println("Update Poke Time: " + getName());
 		pokeTime = System.currentTimeMillis();
 	}
 
@@ -121,10 +121,10 @@ public class Connection {
 	public void interpretIncommingMessage(String message) {
 
 		if (message.startsWith("POKE")) {
-			String [] pokeArguments = message.split(" ");
+			String [] pokeArguments = message.split(" ", 4);
 			// Poke Nachricht auf Gültigkeit prüfen. Falls ungültige Nachricht: ignorieren
-			if (pokeArguments.length == 4 && SyntaxChecker.isWellFormedSessionName(pokeArguments[1]) 
-					&& SyntaxChecker.isWellFormedIpAdress(pokeArguments[2]) && SyntaxChecker.isNummeric(pokeArguments[3])) {
+			if (SyntaxChecker.isWellFormedSessionName(pokeArguments[1]) 
+					&& SyntaxChecker.isWellFormedIpAdress(pokeArguments[2]) && SyntaxChecker.isPortNumber(pokeArguments[3])) {
 				
 				if (pokeArguments[1].equals(name) && pokeArguments[2].equals(ip) && Integer.parseInt(pokeArguments[3]) == peerServerPort) {
 					// Poke Nachricht entspricht den Daten des Kommunikationspartners: PokeTime akutalisieren
@@ -158,32 +158,27 @@ public class Connection {
 
 
 		}else if (message.startsWith("MESSAGE")) {
-
-			String [] messageArguments = message.split(" ");
+			System.out.println("Message verstanden!");
+			String [] messageArguments = message.split(" ", 5);
 
 			// Message Nachricht auf Gültigkeit prüfen. Falls ungültige Nachricht: ignorieren
+			System.out.println(message);
+			
 
-			if (messageArguments.length >= 4 && SyntaxChecker.isWellFormedSessionName(messageArguments[1]) 
-					&& SyntaxChecker.isWellFormedIpAdress(messageArguments[2]) && SyntaxChecker.isNummeric(messageArguments[3])) {
-
+			if (SyntaxChecker.isWellFormedSessionName(messageArguments[1]) 
+					&& SyntaxChecker.isWellFormedIpAdress(messageArguments[2]) && SyntaxChecker.isPortNumber(messageArguments[3])
+					&& SyntaxChecker.isWellFormedMessage(messageArguments[4])) {
+				System.out.println("Message wellformed");
 				// Überprüfen, ob der angegebene Peer in der Pokenachricht der Verbindung entspricht, welche über diesen Port senden darf.
 				// Falls ungültig: Nachricht ignorieren
 
 
 				if (messageArguments[1].equals(name) && messageArguments[2].equals(ip)
 						&& Integer.parseInt(messageArguments[3]) == peerServerPort) {
-
-					// Ermitteln, ab welchem Index die Nachricht beginnt...
-					String msg;
-					int index = 0;
-					for (int i = 0; i < 4; i++) {
-						index = index + messageArguments[i].length() + 1;
-					}
-
-					msg = message.substring(index);
+					
 					// Msg zur History hinzufügen...
-					history.add(name + ": " + msg);
-					System.out.println("NACHRICHT EINGEGANGEN: " + name + ": " + msg);
+					history.add(name + ": " + messageArguments[4]);
+					System.out.println(name + ": " + messageArguments[4]);
 					Facade.notifyObservers();
 				}else {
 					
@@ -194,10 +189,10 @@ public class Connection {
 			}
 		}else if (message.startsWith("DISCONNECT")) {
 
-			String [] discArguments = message.split(" ");
+			String [] discArguments = message.split(" ", 4);
 			// Disconnect Nachricht auf Gültigkeit prüfen. Falls ungültige Nachricht: ignorieren
-			if (discArguments.length == 4 && SyntaxChecker.isWellFormedSessionName(discArguments[1]) 
-					&& SyntaxChecker.isWellFormedIpAdress(discArguments[2]) && SyntaxChecker.isNummeric(discArguments[3])) {
+			if (SyntaxChecker.isWellFormedSessionName(discArguments[1]) 
+					&& SyntaxChecker.isWellFormedIpAdress(discArguments[2]) && SyntaxChecker.isPortNumber(discArguments[3])) {
 				
 				/*
 				 * Falls die Disconnect Nachricht die Argumente des verbundenen Peers trägt: Verbindung schließen

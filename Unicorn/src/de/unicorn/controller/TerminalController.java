@@ -25,14 +25,14 @@ public class TerminalController extends Thread implements IFacadeObserver{
 		
 		port = s.nextLine();
 		
-		System.out.println("Bitte geben Sie Ihre IP-Adresse an, unter der Sie erreichbar sind:");
-		
-		ip = s.nextLine();
+//		System.out.println("Bitte geben Sie Ihre IP-Adresse an, unter der Sie erreichbar sind:");
+//		
+//		ip = s.nextLine();
 		
 		System.out.println("------------------------- READY -------------------------");
 		
 		try {
-			Facade.startUp(name, ip, Integer.parseInt(port));
+			Facade.startUp(name, "129.217.85.178", Integer.parseInt(port));
 			
 			while(isRunning) {
 				
@@ -49,9 +49,9 @@ public class TerminalController extends Thread implements IFacadeObserver{
 					
 				}else if(entry.startsWith("M")) {
 					
-					String[] a = entry.split(" ");
+					String[] a = entry.split(" ", 3);
 					System.out.println("Sending Message...");
-					String message = entry.substring(a[1].length() + 1);
+					String message = a[2];
 					Facade.sendMessage(a[1], message);
 					
 				}else if(entry.startsWith("MX")) {

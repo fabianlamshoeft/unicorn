@@ -68,14 +68,9 @@ public class OutputPort {
 	 * @param message Nachricht, die gesendet werden soll
 	 */
 	public void sendMessage(String message) {
-		try {
-			String messageMsg = "MESSAGE " + SessionManager.getSessionName() + " " + InetAddress.getLocalHost().getHostAddress() + " " + Integer.toString(SessionManager.getServerListenerPort()) + " " + message;
+			String messageMsg = "MESSAGE " + SessionManager.getSessionName() + " " + SessionManager.getIpAdress() + " " + Integer.toString(SessionManager.getServerListenerPort()) + " " + message;
 			writer.println(messageMsg);
 			writer.flush();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	/**
 	 * Sendet eine Disconnect Nacricht mit den Daten des eigenen Peers

@@ -21,6 +21,15 @@ public class SyntaxChecker {
 		}
 	}
 	
+	public static boolean isPortNumber(String s)
+	{
+		if(isNummeric(s) && Integer.parseInt(s) > 1023 && Integer.parseInt(s) < 65536)
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	
 	/**
 	 *  Überprüft, ob der angegebende String eine IP Adresse bildet.
@@ -33,7 +42,7 @@ public class SyntaxChecker {
 		if (b.length == 4) {
 			
 			for(int i = 0; i < 4; i++) {
-				if (!isNummeric(b[i]) && Integer.parseInt(b[i]) > 255) {
+				if (!isNummeric(b[i]) && (Integer.parseInt(b[i]) > 255 || Integer.parseInt(b[i]) < 0)) {
 					return false;
 				}
 			}
@@ -53,6 +62,11 @@ public class SyntaxChecker {
 	 */
 	public static boolean isWellFormedSessionName(String ref) {
 		return !(ref.contains(" ") || ref.contains("\n"));
+	}
+	
+	public static boolean isWellFormedMessage(String m)
+	{
+		return !(m.contains("\n"));
 	}
 		
 	

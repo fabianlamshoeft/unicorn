@@ -40,7 +40,7 @@ public class ConnectionListManager extends Thread{
 						listHasChanged = true;
 					}else {
 						conn.getOut().sendPoke();
-						System.out.println("Sende Poke an: " + conn.getName());
+//						System.out.println("Sende Poke an: " + conn.getName());
 					}
 				}
 				if (listHasChanged) {
