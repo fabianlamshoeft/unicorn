@@ -20,7 +20,9 @@ public class LoginController {
 	
 	public void buttonOK () {
 		if (SyntaxChecker.isWellFormedSessionName(login.textfieldName.getText()) && 
-			SyntaxChecker.isNummeric(login.textfieldPort.getText())) {
+			SyntaxChecker.isNummeric(login.textfieldPort.getText()) &&
+			Integer.parseInt(login.textfieldPort.getText()) > 1023 &&
+			Integer.parseInt(login.textfieldPort.getText()) < 49152) {
 			
 			try {
 				Facade.startUp(login.textfieldName.getText(), InetAddress.getLocalHost().getHostAddress(), Integer.parseInt(login.textfieldPort.getText()));
@@ -29,15 +31,19 @@ public class LoginController {
 				
 				login.window.setVisible(false);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Der Port muss eine Zahl zwischen 1024 und 49151");
+				JOptionPane.showMessageDialog(null, "Bitte korrekte Daten angeben");
 			}
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Bitte korrekte Daten angeben!");
 			if (!SyntaxChecker.isWellFormedSessionName(login.textfieldName.getText())) {
 				login.textfieldName.setText("");
+				JOptionPane.showMessageDialog(null, "Bitte korrekte Daten angeben!");
 			}
-			if (!SyntaxChecker.isNummeric(login.textfieldPort.getText())) {
+			if (!SyntaxChecker.isNummeric(login.textfieldPort.getText()) &&
+				!(Integer.parseInt(login.textfieldPort.getText()) > 1023) &&
+				!(Integer.parseInt(login.textfieldPort.getText()) < 49152)) {
+				JOptionPane.showMessageDialog(null, "Der Port muss eine Zahl zwischen 1024 und 49151");
 				login.textfieldPort.setText("");
 			}
 		}
