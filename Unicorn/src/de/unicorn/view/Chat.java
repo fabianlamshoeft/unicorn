@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
@@ -80,7 +81,7 @@ public class Chat extends JFrame {
 		
 		Container content = this.getContentPane();
 
-		content.setBackground(Color.decode("#B2CCDE"));
+		content.setBackground(Color.decode("0xFFFFFF"));
 		content.setLayout(new BorderLayout());
 		
 		
@@ -101,68 +102,111 @@ public class Chat extends JFrame {
 		JButton btnExit 			= new JButton("EXIT");
 		JButton btnM	 			= new JButton("<html>M <i>Name</i> <i>Text</i></html>");
 		JButton btnMx 			= new JButton("<html>MX <i>IP</i> <i>Port</i> <i>Text</i></html>");
-		btnConnect.setSize(new Dimension(200,20));
-		btnConnect.setPreferredSize(new Dimension(200,20));
-		btnConnect.setMinimumSize(new Dimension(200,20));
-		btnConnect.setMaximumSize(new Dimension(200,20));
-		btnDisconnect.setSize(new Dimension(200,20));
-		btnDisconnect.setPreferredSize(new Dimension(200,20));
-		btnDisconnect.setMinimumSize(new Dimension(200,20));
-		btnDisconnect.setMaximumSize(new Dimension(200,20));
-		btnExit.setSize(new Dimension(200, 20));
-		btnExit.setPreferredSize(new Dimension(200,20));
-		btnExit.setMinimumSize(new Dimension(200,20));
-		btnExit.setMaximumSize(new Dimension(200,20));
-		btnM.setSize(new Dimension(200, 20));
-		btnM.setPreferredSize(new Dimension(200,20));
-		btnM.setMinimumSize(new Dimension(200,20));
-		btnM.setMaximumSize(new Dimension(200,20));
-		btnMx.setSize(new Dimension(200,20));
-		btnMx.setPreferredSize(new Dimension(200,20));
-		btnMx.setMinimumSize(new Dimension(200,20));
-		btnMx.setMaximumSize(new Dimension(200,20));
+		JButton btnOk 			= new JButton("SENDEN");
+		
+		btnConnect.setSize(new Dimension(170,40));
+		btnConnect.setPreferredSize(new Dimension(170,40));
+		btnConnect.setMinimumSize(new Dimension(170,40));
+		btnConnect.setMaximumSize(new Dimension(170,40));
+		btnConnect.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnConnect.setForeground(Color.decode("0x1E647F"));
+		btnConnect.setBackground(Color.decode("0xFBE7A8"));
 		btnConnect.setToolTipText("Sende eine POKE-Nachricht mit den eigenen Daten an den unter IP/Port erreichbaren Peer." );
+		
+		btnDisconnect.setSize(new Dimension(170,40));
+		btnDisconnect.setPreferredSize(new Dimension(170,40));
+		btnDisconnect.setMinimumSize(new Dimension(170,40));
+		btnDisconnect.setMaximumSize(new Dimension(170,40));
+		btnDisconnect.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnDisconnect.setForeground(Color.decode("0x1E647F"));
+		btnDisconnect.setBackground(Color.decode("0xFBE7A8"));
 		btnDisconnect.setToolTipText("Sende eine DISCONNECT-Nachricht mit den eigenen Daten an alle aktiven Peers und entferne diese aus der Peer-Liste.");
+		
+		btnExit.setSize(new Dimension(170, 40));
+		btnExit.setPreferredSize(new Dimension(170,40));
+		btnExit.setMinimumSize(new Dimension(170,40));
+		btnExit.setMaximumSize(new Dimension(170,40));
+		btnExit.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnExit.setForeground(Color.decode("0x1E647F"));
+		btnExit.setBackground(Color.decode("0xFBE7A8"));
 		btnExit.setToolTipText("Sende eine DISCONNECT-Nachricht mit den eigenen Daten an alle bekannten Peers und beende den Client.");
+		
+		btnM.setSize(new Dimension(170, 40));
+		btnM.setPreferredSize(new Dimension(170,40));
+		btnM.setMinimumSize(new Dimension(170,40));
+		btnM.setMaximumSize(new Dimension(170,40));
+		btnM.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnM.setForeground(Color.decode("0x1E647F"));
+		btnM.setBackground(Color.decode("0xFBE7A8"));
 		btnM.setToolTipText("Sende Text als MESSAGE -Nachricht an alle bekannten Peers, die sich mit Name identizieren.");
+		
+		btnMx.setSize(new Dimension(170,40));
+		btnMx.setPreferredSize(new Dimension(170,40));
+		btnMx.setMinimumSize(new Dimension(170,40));
+		btnMx.setMaximumSize(new Dimension(170,40));
+		btnMx.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnMx.setForeground(Color.decode("0x1E647F"));
+		btnMx.setBackground(Color.decode("0xFBE7A8"));
 		btnMx.setToolTipText("Sende Text als MESSAGE -Nachricht an den durch IP und Port eindeutig identizierten Peer.");
 		
+		btnOk.setSize(new Dimension(170,40));
+		btnOk.setPreferredSize(new Dimension(170,40));
+		btnOk.setMinimumSize(new Dimension(170,40));
+		btnOk.setMaximumSize(new Dimension(170,40));
+		btnOk.setFont(new Font("Arial", Font.BOLD, 14));
+		btnOk.setForeground(Color.decode("0x1E647F"));
+		btnOk.setBackground(Color.decode("0xFBE7A8"));
 		
 		
 		JLabel ipAdresse = new JLabel("Meine IP-Adresse: " + Facade.getIp());
-		//ipAdresse.setSize(ipAdresse.getPreferredSize());
-		ipAdresse.setForeground(Color.decode("#1E647F"));
-		ipAdresse.setBackground(Color.decode("#ECE198"));
-		content.add(ipAdresse, BorderLayout.NORTH);
+		ipAdresse.getIconTextGap();
+		ipAdresse.setAlignmentX(LEFT_ALIGNMENT);
+		//ipAdresse.setBounds(100, 100, WIDTH, 400);
+		ipAdresse.setForeground(Color.decode("0x1E647F"));
+		ipAdresse.setBackground(Color.decode("0x1E647F"));
+		ipAdresse.setFont(new Font("Arial", Font.PLAIN, 14));
+
+		JPanel platzhalter = new JPanel();
+		//platzhalter.setLayout(new BoxLayout(platzhalter, BoxLayout.X_AXIS));
+		platzhalter.setAlignmentX(LEFT_ALIGNMENT);
+		platzhalter.getSize(new Dimension(WIDTH, 400));
+		platzhalter.setBounds(100, 100, WIDTH, 400);
+		platzhalter.setBackground(Color.decode("0xFFFFFF"));
+		//platzhalter.setLayout(new BoxLayout(platzhalter, BoxLayout.X_AXIS));
+		//platzhalter.add(ipAdresse);
+		//platzhalter.add(Box.createHorizontalStrut((int) LEFT_ALIGNMENT));
+		
+		content.add(ipAdresse, BorderLayout.BEFORE_FIRST_LINE);
+		content.getSize(new Dimension(WIDTH, 400));
+		content.setBounds(100, 100, WIDTH, 400);
+		content.setForeground(Color.decode("0x1E647F"));
+		content.setBackground(Color.decode("0xFFFFFF"));
+		//content.add(platzhalter, BorderLayout.NORTH);
+		
 		
 		JPanel links = new JPanel();
 		//peers.setSize(peers.getPreferredSize());
-		links.setBackground(Color.decode("#B2CCDE"));
+		links.setBackground(Color.decode("0xFFFFFF"));
 		content.add(links, BorderLayout.WEST);
 		
-		JButton btnOk = new JButton("OK");
-		btnOk.setSize(new Dimension(40, 30));
+		
 		
 		JPanel unten = new JPanel();
 		unten.setLayout(new BoxLayout(unten, BoxLayout.X_AXIS));
-		unten.setBackground(Color.decode("#B2CCDE"));
+		unten.setBackground(Color.decode("0xFFFFFF"));
 		unten.add(textFeld);
-		unten.add(btnOk);
 		
 		JPanel chatbereich = new JPanel();
-		//chatbereich.setSize(chatbereich.getPreferredSize());
-		//chatbereich.setHorizontalAlignment(JPanel.CENTER);
-		chatbereich.setBackground(Color.decode("#B2CCDE"));
+		chatbereich.setBackground(Color.decode("0xFFFFFF"));
 		content.add(chatbereich, BorderLayout.CENTER);
 		chatbereich.setLayout(new BoxLayout(chatbereich, BoxLayout.Y_AXIS));
-		//chatbereich.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		chatbereich.add(Box.createVerticalGlue());
 		chatbereich.add(new JLabel("Nachrichten"));
 		chatbereich.add(unten);
 		
 		JPanel rechts = new JPanel();
 		rechts.setSize(rechts.getPreferredSize());
-		rechts.setBackground(Color.decode("#B2CCDE"));
+		rechts.setBackground(Color.decode("0xFFFFFF"));
 		content.add(rechts, BorderLayout.EAST);
 		rechts.setLayout(new BoxLayout(rechts, BoxLayout.Y_AXIS));
 		rechts.add(btnConnect);
@@ -175,6 +219,8 @@ public class Chat extends JFrame {
 		rechts.add(Box.createVerticalStrut(5));
 		rechts.add(btnMx);
 		rechts.add(Box.createVerticalStrut(5));
+		rechts.add(Box.createVerticalGlue());
+		rechts.add(btnOk);
 		
 		// Befehlsbuttons mit ChatController verknüpfen, um Funktionen zu setzen
 		btnConnect.addActionListener(new ActionListener() {
