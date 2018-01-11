@@ -3,12 +3,15 @@ package de.unicorn.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -22,17 +25,21 @@ import de.unicorn.controller.LoginController;
 
 public class Login{
 
+	// private Variablen zur Größe/Ausrichtung des Fensters
 	private Toolkit t;
 	private int x = 0;
 	private int y = 0;
 	private int width = 400;
 	private int hight = 300;
+	
+	// Verknüpfung zum LoginController erstellen
 	private LoginController controller = new LoginController(this);
 	
-	
-	public JTextField textfieldName = new JTextField(10);
-	public JTextField textfieldPort = new JTextField(10);
 	public JFrame window = new JFrame();
+	public JTextField textfieldName = new JTextField();
+	public JTextField textfieldPort = new JTextField();
+	
+	
 	
 	public Login() {
 		t = Toolkit.getDefaultToolkit(); 
@@ -42,16 +49,15 @@ public class Login{
 		
 		window.setTitle("Login");							// Titel setzen
 		window.setBounds(x, y, width, hight);				// Position festlegen
-		window.setBounds(x, 0, 1000, 750);
+		//window.setBounds(x, 0, 1000, 750);
 		
-		window.setSize(400, 300);
-		window.setMinimumSize(new Dimension(400, 300));
+		window.setSize(400, 280);
+		window.setMinimumSize(new Dimension(400, 280));
 		setupContent(window);
 																// ganze Anwendung schließt, wenn Eigenschaft gesetzt ist
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	// EXIT_ON_CLOSE nicht immer benutzen!!!
 
-		window.setVisible(true);									// Fenster sichtbar machen (immer ganz zum Schluss)
-		
+		window.setVisible(true);									// Fenster sichtbar machen (immer ganz zum Schluss)	
 	}
 	
 	private void setupContent(JFrame window) {
@@ -60,83 +66,55 @@ public class Login{
 		JPanel port = new JPanel();
 		JPanel nameLay = new JPanel();
 		JPanel namePort = new JPanel();
-		JLabel labelName = new JLabel("<html><b>Name</b></html>");	// <font color = "red">
-		JLabel labelPort = new JLabel("<html><b>Port</b></html>");
-		JButton button = new JButton("Ok");
-		button.setSize(new Dimension(30,20));
-		textfieldName.setSize(100, 20);
-		textfieldPort.setSize(100, 20);
-		/**
-		name.setBackground(Color.decode("#B2CCDE"));
-		name.setLayout(new BoxLayout(name, BoxLayout.X_AXIS));
-		name.add(labelName);
-		name.add(textfieldName);
-		**/
+		//JLabel labelName = new JLabel("<html><b>Name</b></html>");	// <font color = "red">
+		//JLabel labelPort = new JLabel("<html><b>Port</b></html>");
+		JButton button = new JButton("Let's go!");
+
+		button.setPreferredSize(new Dimension(200,40));
+		button.setFont(new Font("Arial", Font.BOLD, 14));
+		button.setForeground(Color.decode("0x1E647F"));
+		button.setBackground(Color.decode("0x1E647F"));
+		
+		textfieldName.setPreferredSize(new Dimension(200, 40));
+		textfieldName.setFont(new Font("Arial", Font.PLAIN, 14));
+		textfieldName.setForeground(Color.decode("0x1E647F"));
+		textfieldName.setText("Name");
+		
+		textfieldPort.setPreferredSize(new Dimension(200, 40));
+		textfieldPort.setFont(new Font("Arial", Font.PLAIN, 14));
+		textfieldPort.setForeground(Color.decode("0x1E647F"));
+		textfieldPort.setText("Port");
+		
 		SpringLayout nameLayout = new SpringLayout();
-		
-		nameLayout.putConstraint(SpringLayout.WEST, labelName,
-                100,
-                SpringLayout.WEST, nameLay);
-		nameLayout.putConstraint(SpringLayout.NORTH, labelName,
-				60,
-                SpringLayout.NORTH, nameLay);
-		
-		nameLayout.putConstraint(SpringLayout.WEST, textfieldName,
-				140,
-                SpringLayout.WEST, nameLay);
+		nameLayout.putConstraint(SpringLayout.EAST, textfieldName,
+				-45,
+                SpringLayout.EAST, nameLay);
 		nameLayout.putConstraint(SpringLayout.NORTH, textfieldName,
-                60,
+                40,
                 SpringLayout.NORTH, nameLay);
-		nameLayout.putConstraint(SpringLayout.WEST, labelPort,
-				100,
-                SpringLayout.WEST, nameLay);
-		nameLayout.putConstraint(SpringLayout.NORTH, labelPort,
-                90,
-                SpringLayout.NORTH, nameLay);
-		
-		nameLayout.putConstraint(SpringLayout.WEST, textfieldPort,
-				140,
-                SpringLayout.WEST, nameLay);
+		nameLayout.putConstraint(SpringLayout.EAST, textfieldPort,
+				-45,
+                SpringLayout.EAST, nameLay);
 		nameLayout.putConstraint(SpringLayout.NORTH, textfieldPort,
-				90,
-                SpringLayout.NORTH, nameLay);
-		
-		nameLayout.putConstraint(SpringLayout.WEST, button,
-				280,
-                SpringLayout.WEST, nameLay);
+				85,
+                SpringLayout.NORTH, nameLay);	
+		nameLayout.putConstraint(SpringLayout.EAST, button,
+				-45,
+                SpringLayout.EAST, nameLay);
 		nameLayout.putConstraint(SpringLayout.NORTH, button,
-                90,
+                180,
                 SpringLayout.NORTH, nameLay);
 		
 		nameLay.setLayout(nameLayout);
-		nameLay.setBackground(Color.decode("0xB2CCDE"));
-		nameLay.add(labelName);
+		
 		nameLay.add(textfieldName);
-		nameLay.add(labelPort);
 		nameLay.add(textfieldPort);
 		nameLay.add(button);
 		
 		namePort.setLayout(new BorderLayout());
 		namePort.add(nameLay, BorderLayout.CENTER);
-		namePort.setBackground(Color.decode("0xB2CCDE"));
+		nameLay.setBackground(Color.decode("0xFFFFFF"));
 		
-		
-		/**
-		port.setBackground(Color.decode("#B2CCDE"));
-		port.setLayout(new BoxLayout(port, BoxLayout.X_AXIS));
-		port.add(labelPort);
-		port.add(textfieldPort);
-		port.add(button);
-		
-		namePort.setLayout(new BoxLayout(namePort, BoxLayout.Y_AXIS));
-		namePort.setBackground(Color.decode("0xB2CCDE"));
-		namePort.add(name);
-		namePort.add(port);
-		
-		content.setBackground(Color.decode("0xB2CCDE"));
-		content.setLayout(new BorderLayout());
-		content.add(namePort, BorderLayout.CENTER);
-		**/
 		textfieldName.requestFocusInWindow();
 		window.setContentPane(namePort);
 		
@@ -158,7 +136,44 @@ public class Login{
 	        }
 	    };
 	    
+	    MouseListener btnMouseListener = new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				button.setBackground(Color.decode("0xFFD75D"));
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				button.setBackground(Color.decode("0xFFD75D"));
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				button.setBackground(Color.decode("0xFFD75D"));
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				button.setBackground(Color.decode("0xFFD75D"));
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				button.setBackground(Color.decode("0xFFD75D"));
+				
+			}
+		};
+	    
+	    
+	    button.addMouseListener(btnMouseListener);
 	    textfieldPort.addKeyListener(tfKeyListener);
-		
+	    
+	    textfieldName.requestFocusInWindow();
+		window.setContentPane(namePort);
 	}
 }
