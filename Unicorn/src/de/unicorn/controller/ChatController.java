@@ -48,18 +48,22 @@ public class ChatController implements IFacadeObserver{
 				SyntaxChecker.isPortNumber(befehlArgu[2])) {
 				int port = Integer.parseInt(befehlArgu[2]);
 				Facade.connect(befehlArgu[1], port);
+				chat.getTextFeld().setText("");
 			}
 		} 
 		else if (befehl.startsWith("DISCONNECT")) {
 			Facade.disconnect();
+			chat.getTextFeld().setText("");
 		}
 		else if (befehl.startsWith("EXIT")) {
 			Facade.exit();
+			chat.getTextFeld().setText("");
 		}
 		else if (befehl.startsWith("M")) {
 			String [] befehlArgu = befehl.split(" ", 3);
 			if (SyntaxChecker.isWellFormedSessionName(befehlArgu[1])) {
 				Facade.sendMessage(befehlArgu[1], befehlArgu[2]);
+				chat.getTextFeld().setText("");
 			}
 		}
 		else if (befehl.startsWith("MX")) {
@@ -68,6 +72,7 @@ public class ChatController implements IFacadeObserver{
 				SyntaxChecker.isPortNumber(befehlArgu[2])) {
 				int port = Integer.parseInt(befehlArgu[2]);
 				Facade.sendMessage(befehlArgu[1], port, befehlArgu[3]);
+				chat.getTextFeld().setText("");
 			}
 		}
 		else {
