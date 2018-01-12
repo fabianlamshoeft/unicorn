@@ -33,7 +33,7 @@ public class TerminalController extends Thread implements IFacadeObserver{
 		System.out.println("------------------------- READY -------------------------");
 		
 		try {
-			Facade.startUp(name, InetAddress.getLocalHost().getHostAddress(), Integer.parseInt(port));
+			Facade.startUp(name, ip, Integer.parseInt(port));
 			
 			while(isRunning) {
 				
