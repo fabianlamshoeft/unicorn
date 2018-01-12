@@ -133,6 +133,13 @@ auch für den Peer, welcher den Poke / Disconnect Nachricht gesendet hat.)
 -> Verbindungsaufbau
 
 SERVER_PORT_LISTENER:
+Der ServerPortListener lauscht auf einem öffentlichen Port nach neu eingehenden
+Verbindungen. Wird ein Poke von einem Peer empfangen, welcher noch nicht in der Liste aktiver
+Verbindungen steht, bzw. gerade erstellt wird, wird eine neue Factory mit dieser Verbindung 
+angelegt.
+
+Erweiterung:
+Die Erweiterung des ServerPortListeners verarbeitet neben den POKE Nachrichten auch andere Nachrichten
 
 CONNECTION_FACTORY:
 
