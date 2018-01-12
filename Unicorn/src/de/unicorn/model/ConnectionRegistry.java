@@ -24,6 +24,7 @@ public class ConnectionRegistry {
 	
 	public static void addConnection(Connection conn) {
 		connections.add(conn);
+		Facade.notifyObservers();
 		System.out.println("Neu Verbindung in Liste eingetragen: " + conn.getName());
 	}
 	
@@ -92,7 +93,7 @@ public class ConnectionRegistry {
 				connections.remove(conn);
 			}
 		}
-		
+		Facade.notifyObservers();
 	}
 	
 	/**

@@ -23,20 +23,35 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import de.unicorn.controller.ChatController;
 import de.unicorn.controller.LoginController;
+import de.unicorn.model.Connection;
 import de.unicorn.model.Facade;
+import de.unicorn.view.components.BtnUc;
 
 public class Chat extends JFrame {
 	
 	private ChatController controller = new ChatController(this);
 	private JTextField textFeld = new JTextField(30);
+	private JList<String> nachrichten = new JList<String>();
+	private JList<String> peers = new JList<String>();
 	
+	
+	public JList<String> getNachrichten() {
+		return nachrichten;
+	}
+
 	public JTextField getTextFeld() {
 		return textFeld;
+	}
+	
+	public JList<String> getPeers() {
+		return peers;
 	}
 
 	public Chat() throws HeadlessException {
@@ -89,21 +104,22 @@ public class Chat extends JFrame {
 		Color c = Color.decode("0x1E647F");
 		textFeld.setForeground(c);
 		textFeld.requestFocusInWindow();
-		textFeld.setSize(new Dimension(700, 30));
-		textFeld.setPreferredSize(new Dimension(700, 30));
-		textFeld.setMinimumSize(new Dimension(700, 30));
-		textFeld.setMaximumSize(new Dimension(700, 30));
+		textFeld.setSize(new Dimension(1400, 38));
+		textFeld.setPreferredSize(new Dimension(1400, 38));
+		textFeld.setMinimumSize(new Dimension(1400, 38));
+		textFeld.setMaximumSize(new Dimension(1400, 38));
 		
-		content.add(textFeld, BorderLayout.SOUTH); 
+		//content.add(textFeld, BorderLayout.SOUTH); 
 		
 		
-		JButton btnConnect 		= new JButton("<html>CONNECT <i>IP</i> <i>Port</i></html");
+		JButton btnConnect 		= new JButton();
 		JButton btnDisconnect	= new JButton("DISCONNECT");
 		JButton btnExit 			= new JButton("EXIT");
 		JButton btnM	 			= new JButton("<html>M <i>Name</i> <i>Text</i></html>");
 		JButton btnMx 			= new JButton("<html>MX <i>IP</i> <i>Port</i> <i>Text</i></html>");
 		JButton btnOk 			= new JButton("SENDEN");
 		
+		btnConnect.setText("<html>CONNECT <i>IP</i> <i>Port</i></html");
 		btnConnect.setSize(new Dimension(170,40));
 		btnConnect.setPreferredSize(new Dimension(170,40));
 		btnConnect.setMinimumSize(new Dimension(170,40));
@@ -158,56 +174,50 @@ public class Chat extends JFrame {
 		btnOk.setBackground(Color.decode("0xFBE7A8"));
 		
 		
-		JLabel ipAdresse = new JLabel("Meine IP-Adresse: " + Facade.getIp());
+		JLabel ipAdresse = new JLabel("   Meine IP-Adresse: " + Facade.getIp());
 		ipAdresse.getIconTextGap();
+		ipAdresse.setMinimumSize(new Dimension(WIDTH, 30));
+		ipAdresse.setPreferredSize(new Dimension(WIDTH, 30));
+		ipAdresse.setSize(new Dimension(WIDTH, 30));
+		ipAdresse.setMaximumSize(new Dimension(WIDTH, 30));
 		ipAdresse.setAlignmentX(LEFT_ALIGNMENT);
-		//ipAdresse.setBounds(100, 100, WIDTH, 400);
 		ipAdresse.setForeground(Color.decode("0x1E647F"));
 		ipAdresse.setBackground(Color.decode("0x1E647F"));
 		ipAdresse.setFont(new Font("Arial", Font.PLAIN, 14));
 
-		JPanel platzhalter = new JPanel();
-		//platzhalter.setLayout(new BoxLayout(platzhalter, BoxLayout.X_AXIS));
-		platzhalter.setAlignmentX(LEFT_ALIGNMENT);
-		platzhalter.getSize(new Dimension(WIDTH, 400));
-		platzhalter.setBounds(100, 100, WIDTH, 400);
-		platzhalter.setBackground(Color.decode("0xFFFFFF"));
-		//platzhalter.setLayout(new BoxLayout(platzhalter, BoxLayout.X_AXIS));
-		//platzhalter.add(ipAdresse);
-		//platzhalter.add(Box.createHorizontalStrut((int) LEFT_ALIGNMENT));
-		
-		content.add(ipAdresse, BorderLayout.BEFORE_FIRST_LINE);
-		content.getSize(new Dimension(WIDTH, 400));
-		content.setBounds(100, 100, WIDTH, 400);
-		content.setForeground(Color.decode("0x1E647F"));
-		content.setBackground(Color.decode("0xFFFFFF"));
-		//content.add(platzhalter, BorderLayout.NORTH);
 		
 		
-		JPanel links = new JPanel();
-		//peers.setSize(peers.getPreferredSize());
-		links.setBackground(Color.decode("0xFFFFFF"));
-		content.add(links, BorderLayout.WEST);
 		
+
+		peers.setSize(new Dimension(170, 1000));
+		peers.setPreferredSize(new Dimension(170,1000));
+		peers.setMinimumSize(new Dimension(170, 1000));
+		peers.setMaximumSize(new Dimension(170,1000));
+		peers.setBackground(Color.decode("0xFFFFFF"));
+		peers.setForeground(Color.decode("0x1E647F"));
 		
 		
 		JPanel unten = new JPanel();
 		unten.setLayout(new BoxLayout(unten, BoxLayout.X_AXIS));
 		unten.setBackground(Color.decode("0xFFFFFF"));
+		//unten.add(Box.createHorizontalGlue());
 		unten.add(textFeld);
+		
+		
+		nachrichten.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		nachrichten.setSelectionForeground(Color.decode("0x1E647F"));
+		
 		
 		JPanel chatbereich = new JPanel();
 		chatbereich.setBackground(Color.decode("0xFFFFFF"));
-		content.add(chatbereich, BorderLayout.CENTER);
 		chatbereich.setLayout(new BoxLayout(chatbereich, BoxLayout.Y_AXIS));
 		chatbereich.add(Box.createVerticalGlue());
-		chatbereich.add(new JLabel("Nachrichten"));
+		chatbereich.add(nachrichten);
 		chatbereich.add(unten);
 		
 		JPanel rechts = new JPanel();
 		rechts.setSize(rechts.getPreferredSize());
 		rechts.setBackground(Color.decode("0xFFFFFF"));
-		content.add(rechts, BorderLayout.EAST);
 		rechts.setLayout(new BoxLayout(rechts, BoxLayout.Y_AXIS));
 		rechts.add(btnConnect);
 		rechts.add(Box.createVerticalStrut(5));
@@ -221,6 +231,19 @@ public class Chat extends JFrame {
 		rechts.add(Box.createVerticalStrut(5));
 		rechts.add(Box.createVerticalGlue());
 		rechts.add(btnOk);
+		
+		
+		content.getSize(new Dimension(WIDTH, 400));
+		content.setBounds(100, 100, WIDTH, 400);
+		content.setForeground(Color.decode("0x1E647F"));
+		content.setBackground(Color.decode("0xFFFFFF"));
+		
+		content.add(ipAdresse, BorderLayout.BEFORE_FIRST_LINE);
+		content.add(peers, BorderLayout.WEST);
+		content.add(chatbereich, BorderLayout.CENTER);
+		content.add(rechts, BorderLayout.EAST);
+		
+		
 		
 		// Befehlsbuttons mit ChatController verknüpfen, um Funktionen zu setzen
 		btnConnect.addActionListener(new ActionListener() {
@@ -278,6 +301,9 @@ public class Chat extends JFrame {
 			}
 		});
 		
+		
+		
+				
 		// Bei ENTER-Taste gleiche Aktion wie bei btnOk
 	    KeyListener tfKeyListener = new KeyAdapter() {
 	        public void keyPressed(KeyEvent evt) {
@@ -286,9 +312,13 @@ public class Chat extends JFrame {
 	        }
 	    };
 	    
+	    
+	    
 	    textFeld.addKeyListener(tfKeyListener);
 		
 		
 		
 	}
+
+	
 }

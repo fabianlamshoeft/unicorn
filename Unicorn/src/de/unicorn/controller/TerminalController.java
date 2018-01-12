@@ -2,6 +2,7 @@ package de.unicorn.controller;
 
 import java.util.Scanner;
 
+import de.unicorn.model.Connection;
 import de.unicorn.model.Facade;
 import de.unicorn.model.IFacadeObserver;
 
@@ -88,6 +89,12 @@ public class TerminalController extends Thread implements IFacadeObserver{
 
 	@Override
 	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateMessageHistory(Connection con) {
 		// TODO Auto-generated method stub
 		
 	}

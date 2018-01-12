@@ -69,11 +69,12 @@ public class Login{
 		//JLabel labelName = new JLabel("<html><b>Name</b></html>");	// <font color = "red">
 		//JLabel labelPort = new JLabel("<html><b>Port</b></html>");
 		JButton button = new JButton("Let's go!");
-
+		button.setOpaque(false);
 		button.setPreferredSize(new Dimension(200,40));
 		button.setFont(new Font("Arial", Font.BOLD, 14));
 		button.setForeground(Color.decode("0x1E647F"));
-		button.setBackground(Color.decode("0x1E647F"));
+		button.setBackground(Color.decode("0xFFD75D"));
+		
 		
 		textfieldName.setPreferredSize(new Dimension(200, 40));
 		textfieldName.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -110,6 +111,7 @@ public class Login{
 		nameLay.add(textfieldName);
 		nameLay.add(textfieldPort);
 		nameLay.add(button);
+		
 		
 		namePort.setLayout(new BorderLayout());
 		namePort.add(nameLay, BorderLayout.CENTER);
@@ -175,5 +177,7 @@ public class Login{
 	    
 	    textfieldName.requestFocusInWindow();
 		window.setContentPane(namePort);
+		
+		
 	}
 }

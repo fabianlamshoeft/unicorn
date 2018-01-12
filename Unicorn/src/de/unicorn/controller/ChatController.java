@@ -3,9 +3,11 @@ package de.unicorn.controller;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import de.unicorn.model.Connection;
 import de.unicorn.model.Facade;
 import de.unicorn.model.IFacadeObserver;
 import de.unicorn.model.SyntaxChecker;
@@ -14,10 +16,11 @@ import de.unicorn.view.Chat;
 public class ChatController implements IFacadeObserver{
 
 	private Chat chat;
-	
+	private ArrayList<String> list = new ArrayList<>();
 	
 	public ChatController(Chat c) {
 		this.chat = c;
+		Facade.register(this);
 	}
 
 	public void btnConnect() {
@@ -80,13 +83,24 @@ public class ChatController implements IFacadeObserver{
 		}
 	}
 	
-
+	
 
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		chat.getPeers().setListData(Facade.getPeerList());
+	}
+
+	@Override
+	public void updateMessageHistory(Connection con) {
+		list.add(con.getHistory().getLast());
+		String [] realList = new String [list.size()];
+		realList = list.toArray(realList);
+		
+		chat.getNachrichten().setListData(realList);
 		
 	}
+	
 	
 	
 }

@@ -75,8 +75,9 @@ public class Facade {
 		int index = 0;
 		while (it.hasNext()) {
 			Connection conn = it.next();
-			result[index] = conn.getName() + " " + conn.getIP() + " " + conn.getPeerServerPort();
+			result[index] = conn.getName() + "\n" + conn.getIP() + "\n" + conn.getPeerServerPort();
 		}
+		System.out.println("Da holt sich jemand was ab...");
 		return result;
 	}
 	/**
@@ -133,6 +134,7 @@ public class Facade {
 		while(it.hasNext()) {
 			it.next().update();
 		}
+		System.out.println("ich sage es allen weiter...");
 	}
 	
 	public static String getIp() {
