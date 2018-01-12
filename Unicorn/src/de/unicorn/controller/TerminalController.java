@@ -26,9 +26,9 @@ public class TerminalController extends Thread implements IFacadeObserver{
 		
 		port = s.nextLine();
 		
-//		System.out.println("Bitte geben Sie Ihre IP-Adresse an, unter der Sie erreichbar sind:");
-//		
-//		ip = s.nextLine();
+		System.out.println("Bitte geben Sie Ihre IP-Adresse an, unter der Sie erreichbar sind:");
+		
+		ip = s.nextLine();
 		
 		System.out.println("------------------------- READY -------------------------");
 		
