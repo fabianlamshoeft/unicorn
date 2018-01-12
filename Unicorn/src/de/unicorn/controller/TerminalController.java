@@ -1,5 +1,6 @@
 package de.unicorn.controller;
 
+import java.net.InetAddress;
 import java.util.Scanner;
 
 import de.unicorn.model.Facade;
@@ -32,7 +33,7 @@ public class TerminalController extends Thread implements IFacadeObserver{
 		System.out.println("------------------------- READY -------------------------");
 		
 		try {
-			Facade.startUp(name, "129.217.85.178", Integer.parseInt(port));
+			Facade.startUp(name, InetAddress.getLocalHost().getHostAddress(), Integer.parseInt(port));
 			
 			while(isRunning) {
 				
@@ -56,10 +57,9 @@ public class TerminalController extends Thread implements IFacadeObserver{
 					
 				}else if(entry.startsWith("MX")) {
 					
-					String[] a = entry.split(" ");
+					String[] a = entry.split(" ", 4);
 					System.out.println("Sending Message...");
-					String message = entry.substring(a[1].length() + a[2].length() + 4);
-					Facade.sendMessage(a[1], Integer.parseInt(a[2]), message);
+					Facade.sendMessage(a[1], Integer.parseInt(a[2]), a[3]);
 					
 					
 				}else if (entry.startsWith("DISCONNECT")) {

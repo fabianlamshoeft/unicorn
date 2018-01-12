@@ -24,7 +24,7 @@ public class OnwardTransmitter {
     	while (it.hasNext()) {
     		
     		Connection c = it.next();
-    		if (c.equals(c) || (c.getName().equals(pokeName) && c.getIP().equals(pokeIp) && c.getPeerServerPort()== pokePort)){
+    		if (!(c.equals(conn) || (c.getName().equals(pokeName) && c.getIP().equals(pokeIp) && c.getPeerServerPort()== pokePort))){
     			
     			c.getOut().sendPoke(pokeName, pokeIp, pokePort);
     			

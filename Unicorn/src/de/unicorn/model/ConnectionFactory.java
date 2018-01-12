@@ -33,7 +33,7 @@ public class ConnectionFactory {
 				if (timeout) {
 					// Factory zerstören
 					System.out.println("Factory timeout!");
-					distroy();
+					destroy();
 				}
 				
 			}
@@ -51,7 +51,7 @@ public class ConnectionFactory {
 	
 	public ConnectionFactory(String name, String ip, int port, Socket in)
 	{
-		System.out.println("Factory mit eingeganngenden POKE");
+		System.out.println("Factory mit eingegangenem POKE");
 		conn = new Connection();
 		conn.setIn(new InputPort(in, conn));
 		conn.setName(name);
@@ -65,16 +65,16 @@ public class ConnectionFactory {
 			
 			conn.setOut(out);
 			
-			create();
+			createWithIncomingPoke();
 			
 		} catch (UnknownHostException e) {
 			
 			// Fehler
-			distroy();
+			destroy();
 			
 		} catch (IOException e) {
 			// Fehler
-			distroy();
+			destroy();
 		}
 		
 	}
@@ -84,17 +84,19 @@ public class ConnectionFactory {
 		return conn;
 	}
 	
-	public void create()
+	public void createWithIncomingPoke()
 	{
 		conn.updatePokeTime();
 		conn.getIn().startListener();
 		ConnectionRegistry.addConnection(conn);
 		System.out.println("Factory: Erstelle sofort");
-		distroy();
+		ConnectionRegistry.getOnwardTransmitter().forwardPokeMessage(conn, 
+				conn.getName(), conn.getIP(), conn.getPeerServerPort());
+		destroy();
 		
 	}
 	
-	public void create(String name, Socket in)
+	public void createWithOutgoingPoke(String name, Socket in)
 	{
 		if (!timeout) {
 			pokeArrived = true;
@@ -112,13 +114,15 @@ public class ConnectionFactory {
 			
 				timer.interrupt();
 			
-			System.out.println("Factory: Erstellt mit wartezeit auf Rückpoke");
-			distroy();
+			ConnectionRegistry.getOnwardTransmitter().forwardPokeMessage(conn, 
+					conn.getName(), conn.getIP(), conn.getPeerServerPort());
+			System.out.println("Factory: Erstellt mit Wartezeit auf Rückpoke");
+			destroy();
 			
 		}
 	}
 	
-	private void distroy() {
+	private void destroy() {
 		SessionManager.removeFactory(this);
 	}
 	
