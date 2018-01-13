@@ -134,6 +134,12 @@ public class Facade {
 			it.next().update();
 		}
 	}
+	public static void notifyObservers(Connection conn) {
+		Iterator <IFacadeObserver> it = obsList.iterator();
+		while(it.hasNext()) {
+			//it.next().update(); Zweite UpdateMethode abwarten...
+		}
+	}
 	
 	public static String getIp() {
 		return SessionManager.getIpAdress();
