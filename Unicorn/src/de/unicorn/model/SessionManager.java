@@ -24,11 +24,27 @@ public class SessionManager {
 	public static void addFactory(ConnectionFactory fac)
 	{
 		factories.add(fac);
+		
+		// Testausgabe
+		Iterator<ConnectionFactory> it = factories.iterator();
+		System.out.println("---------------------------");
+		while (it.hasNext()) {
+			System.out.println(it.next().getConnection().getPeerServerPort());
+		}
+		System.out.println("---------------------------");
 	}
 	
 	public static void removeFactory(ConnectionFactory fac)
 	{
 		factories.remove(fac);
+		
+		// Testausgabe
+		System.out.println("---------------------------");
+		Iterator<ConnectionFactory> it = factories.iterator();
+		while (it.hasNext()) {
+			System.out.println(it.next().getConnection().getPeerServerPort());
+		}
+		System.out.println("---------------------------");
 	}
 	
 	/**
@@ -72,10 +88,16 @@ public class SessionManager {
 		Socket poker = new Socket();
 		try {
 			poker = new Socket(ip, port);
+			
+			ConnectionFactory fac = new ConnectionFactory();
+			fac.setFactoryData(ip, port, poker);
+			
+			addFactory(fac);
+			
 			OutputPort out = new OutputPort(poker);
 			out.sendPoke();
 			
-			addFactory(new ConnectionFactory(ip, port, poker));
+			
 			
 		} catch (UnknownHostException e) {
 			try {

@@ -31,7 +31,7 @@ public class ServerPortListener extends Thread{
 							&& SyntaxChecker.isPortNumber(pokeArguments[3])) {
 						
 						// Peer noch nicht in der Factory oder Liste?
-						
+						System.out.println(message);
 						if (ConnectionRegistry.hasConnection(pokeArguments[2], Integer.parseInt(pokeArguments[3]))) {
 							// PokeTime update
 							System.out.println("ServerPortListener: POKE Update");
@@ -45,8 +45,10 @@ public class ServerPortListener extends Thread{
 						}else {
 							// Neue Factory hinzufügen
 							System.out.println("1. ServerPortListener: Neues Poke! Verbindung hinzufügen!");
-							SessionManager.addFactory(new ConnectionFactory(pokeArguments[1], pokeArguments [2], Integer.parseInt(pokeArguments[3]),incommingRequest));
-							
+							ConnectionFactory fac = new ConnectionFactory();
+							fac.setFactoryData(pokeArguments[1], pokeArguments [2], Integer.parseInt(pokeArguments[3]),incommingRequest);
+							SessionManager.addFactory(fac);
+							fac.createWithIncomingPoke();
 						}
 						
 

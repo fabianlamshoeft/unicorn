@@ -11,8 +11,8 @@ public class ConnectionFactory {
 	private boolean timeout = false;
 	private long creationTime;
 	
-	public ConnectionFactory(String ip, int port, Socket out)
-	{	
+	
+	public void setFactoryData(String ip, int port, Socket out) {
 		System.out.println("Factory mit Usereingabe: " + port);
 		creationTime = System.currentTimeMillis();
 		timer = new Thread(new Runnable() {
@@ -46,12 +46,9 @@ public class ConnectionFactory {
 		conn.setPeerServerPort(port);
 		
 		startTimer();
-		
-		
 	}
 	
-	public ConnectionFactory(String name, String ip, int port, Socket in)
-	{
+	public void setFactoryData(String name, String ip, int port, Socket in) {
 		System.out.println("Factory mit eingegangenem POKE");
 		conn = new Connection();
 		conn.setIn(new InputPort(in, conn));
@@ -66,8 +63,6 @@ public class ConnectionFactory {
 			
 			conn.setOut(out);
 			
-			createWithIncomingPoke();
-			
 		} catch (UnknownHostException e) {
 			
 			// Fehler
@@ -77,7 +72,6 @@ public class ConnectionFactory {
 			// Fehler
 			destroy();
 		}
-		
 	}
 	
 	public Connection getConnection()
