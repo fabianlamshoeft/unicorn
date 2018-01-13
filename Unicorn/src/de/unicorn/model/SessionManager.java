@@ -51,7 +51,7 @@ public class SessionManager {
 	 * @param port
 	 * @return true, wenn Connection in Factory
 	 */
-	public static boolean connectionInFactory(String ip, int port)
+	public synchronized static boolean connectionInFactory(String ip, int port)
 	{
 		for (ConnectionFactory connectionFactory : factories)
 		{
@@ -97,7 +97,7 @@ public class SessionManager {
 	 * @param port
 	 * @return Factory mit gegebener Connection
 	 */
-	public static ConnectionFactory getFactory(String ip, int port)
+	public synchronized static ConnectionFactory getFactory(String ip, int port)
 	{
 		if(connectionInFactory(ip, port))
 		{

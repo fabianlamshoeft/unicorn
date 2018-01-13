@@ -13,7 +13,7 @@ public class ConnectionFactory {
 	
 	public ConnectionFactory(String ip, int port, Socket out)
 	{	
-		System.out.println("Factory mit Usereingabe");
+		System.out.println("Factory mit Usereingabe: " + port);
 		creationTime = System.currentTimeMillis();
 		timer = new Thread(new Runnable() {
 			
@@ -32,6 +32,7 @@ public class ConnectionFactory {
 				timeout = !pokeArrived;
 				if (timeout) {
 					// Factory zerstören
+					System.out.println(conn.getName() + " " + conn.getPeerServerPort());
 					System.out.println("Factory timeout!");
 					destroy();
 				}
