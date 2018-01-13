@@ -147,10 +147,13 @@ public class Connection {
 						ConnectionRegistry.getConnection(pokeArguments[1], pokeArguments[2], Integer.parseInt(pokeArguments[3])).updatePokeTime();
 					}else {
 							// Verbindung hinzufügen
+						if (!SessionManager.connectionInFactory(pokeArguments[2], Integer.parseInt(pokeArguments[3]))) {
 							SessionManager.sendConnectionPoke(pokeArguments[2], Integer.parseInt(pokeArguments[3]));
 							// Poke weiterleiten
 							ConnectionRegistry.getOnwardTransmitter().forwardPokeMessage(this, pokeArguments[1], pokeArguments[2], Integer.parseInt(pokeArguments[3]));
 							
+						}
+		
 					}
 				}
 
