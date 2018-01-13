@@ -93,23 +93,38 @@ public class Facade {
 	 * Sendet an alle bestehenden Verbindungen eine Disconnect Nachricht und schließt sie anschließend.
 	 */
 	public static void disconnect() {
+		
+		SessionManager.getServerPortListener().setAcceptNewConnections(false);
+		ConnectionRegistry.getListManager().setHold(true);
+		
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		Iterator <Connection> it = ConnectionRegistry.getIterator();
 		while (it.hasNext()) {
 			Connection conn = it.next();
+			System.out.println("Entferne: " + conn.getName());
 			conn.close();
-			ConnectionRegistry.remove(conn);
+			it.remove();
 		}
+		
+		SessionManager.getServerPortListener().setAcceptNewConnections(true);
+		ConnectionRegistry.getListManager().setHold(false);
 	}
 	/**
 	 * Ruft disconnect auf und schließt anschließend den Port für eingehende Verbindungen.
 	 * Der Client ist somit offline und nicht mehr erreichbar.
 	 */
 	public static void exit() {
-		System.out.println("beenden ...");
+//		System.out.println("beenden ...");
 		SessionManager.stopServerPortListener();
 		disconnect();
 		ConnectionRegistry.getListManager().stopListManager();
-		System.out.println("alles zu");
+//		System.out.println("alles zu");
 	}
 	/**
 	 * Meldet das Observer Objekt bei der Facade an

@@ -18,6 +18,7 @@ import java.util.Iterator;
 public class ConnectionListManager extends Thread{
 
 	private boolean isRunning = false;
+	private boolean hold = false;
 	private long lastUpdate = System.currentTimeMillis();
 	/**
 	 * Beschreibt das Vorgehen des ConnectionListManagers
@@ -25,9 +26,9 @@ public class ConnectionListManager extends Thread{
 	public void run() {
 		
 		while (isRunning) {
-			if ((System.currentTimeMillis() - lastUpdate) >= 30000) {
+			if (((System.currentTimeMillis() - lastUpdate) >= 30000) && !hold) {
 				
-				boolean listHasChanged = false;
+				
 				
 				Iterator <Connection> it = ConnectionRegistry.getIterator();
 				Connection conn;
@@ -37,15 +38,13 @@ public class ConnectionListManager extends Thread{
 						System.out.println("Verbindung zu lange inaktiv! NAME: " + conn.getName());
 						conn.close();
 						ConnectionRegistry.remove(conn);
-						listHasChanged = true;
+						
 					}else {
 						conn.getOut().sendPoke();
 //						System.out.println("Sende Poke an: " + conn.getName());
 					}
 				}
-				if (listHasChanged) {
-					//TODO: Facade benachrichtigen
-				}
+				
 				lastUpdate = System.currentTimeMillis();
 			}
 			try {
@@ -55,6 +54,9 @@ public class ConnectionListManager extends Thread{
 			}
 		}
 		
+	}
+	public void setHold(boolean hold) {
+		this.hold = hold;
 	}
 	/**
 	 * Startet den Tread ConnectionListManager.

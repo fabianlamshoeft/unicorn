@@ -53,9 +53,12 @@ public class InputPort extends Thread{
 				message = reader.readLine();
 				// Das interpretieren der Nachricht übernimmt die Instanz des Connection Objektes, welches 
 				// diesen Listener benutzt
-				
+				System.out.println(conn.getName() + ": Rohdaten = " + message);
 				if (message != null) {
 					conn.interpretIncommingMessage(message);
+				}else {
+					reader.close();
+					in.close();
 				}
 				
 			}
@@ -72,7 +75,7 @@ public class InputPort extends Thread{
 	public void startListener() {
 		isRunning = true;
 		super.start();
-		System.out.println("Listener gestartet");
+//		System.out.println("Listener gestartet");
 	}
 	/**
 	 * Gibt den InputSocket zurück

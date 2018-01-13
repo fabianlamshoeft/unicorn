@@ -9,6 +9,12 @@ import java.util.LinkedList;
 public class SessionManager {
 	private static LinkedList<ConnectionFactory> factories = new LinkedList<>();
 	private static ServerPortListener serverPortListener;
+	
+	
+	public static ServerPortListener getServerPortListener() {
+		return serverPortListener;
+	}
+
 	private static String sessionName;
 	private static int serverPort;
 	private static String ipAdress;
@@ -25,13 +31,13 @@ public class SessionManager {
 	{
 		factories.add(fac);
 		
-		// Testausgabe
-		Iterator<ConnectionFactory> it = factories.iterator();
-		System.out.println("---------------------------");
-		while (it.hasNext()) {
-			System.out.println(it.next().getConnection().getPeerServerPort());
-		}
-		System.out.println("---------------------------");
+//		 Testausgabe
+//		Iterator<ConnectionFactory> it = factories.iterator();
+//		System.out.println("---------------------------");
+//		while (it.hasNext()) {
+//			System.out.println(it.next().getConnection().getPeerServerPort());
+//		}
+//		System.out.println("---------------------------");
 	}
 	
 	public static void removeFactory(ConnectionFactory fac)
@@ -39,12 +45,12 @@ public class SessionManager {
 		factories.remove(fac);
 		
 		// Testausgabe
-		System.out.println("---------------------------");
-		Iterator<ConnectionFactory> it = factories.iterator();
-		while (it.hasNext()) {
-			System.out.println(it.next().getConnection().getPeerServerPort());
-		}
-		System.out.println("---------------------------");
+//		System.out.println("---------------------------");
+//		Iterator<ConnectionFactory> it = factories.iterator();
+//		while (it.hasNext()) {
+//			System.out.println(it.next().getConnection().getPeerServerPort());
+//		}
+//		System.out.println("---------------------------");
 	}
 	
 	/**

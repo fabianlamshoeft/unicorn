@@ -26,7 +26,7 @@ public class ConnectionFactory {
 	 * @param out Das Socket, über welchen die erste PokeNachricht gesendet wurde. 
 	 */
 	public void setFactoryData(String ip, int port, Socket out) {
-		System.out.println("Factory mit Usereingabe: " + port);
+//		System.out.println("Factory mit Usereingabe: " + port);
 		creationTime = System.currentTimeMillis();
 		timer = new Thread(new Runnable() {
 			
@@ -45,7 +45,7 @@ public class ConnectionFactory {
 				timeout = !pokeArrived;
 				if (timeout) {
 					// Factory zerstören
-					System.out.println(conn.getName() + " " + conn.getPeerServerPort());
+//					System.out.println(conn.getName() + " " + conn.getPeerServerPort());
 					System.out.println("Factory timeout!");
 					destroy();
 				}
@@ -68,7 +68,7 @@ public class ConnectionFactory {
 	 * @param in
 	 */
 	public void setFactoryData(String name, String ip, int port, Socket in) {
-		System.out.println("Factory mit eingegangenem POKE");
+//		System.out.println("Factory mit eingegangenem POKE");
 		conn = new Connection();
 		conn.setIn(new InputPort(in, conn));
 		conn.setName(name);
@@ -108,7 +108,7 @@ public class ConnectionFactory {
 		conn.updatePokeTime();
 		conn.getIn().startListener();
 		ConnectionRegistry.addConnection(conn);
-		System.out.println("Factory: Erstelle sofort");
+//		System.out.println("Factory: Erstelle sofort");
 		ConnectionRegistry.getOnwardTransmitter().forwardPokeMessage(conn, 
 				conn.getName(), conn.getIP(), conn.getPeerServerPort());
 		destroy();
@@ -135,7 +135,7 @@ public class ConnectionFactory {
 			
 			ConnectionRegistry.getOnwardTransmitter().forwardPokeMessage(conn, 
 					conn.getName(), conn.getIP(), conn.getPeerServerPort());
-			System.out.println("Factory: Erstellt mit Wartezeit auf Rückpoke");
+//			System.out.println("Factory: Erstellt mit Wartezeit auf Rückpoke");
 			destroy();
 			
 		}

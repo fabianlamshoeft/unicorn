@@ -170,7 +170,7 @@ public class Connection {
 			String [] messageArguments = message.split(" ", 5);
 
 			// Message Nachricht auf Gültigkeit prüfen. Falls ungültige Nachricht: ignorieren
-			System.out.println(message);
+//			System.out.println(message);
 			
 
 			if (SyntaxChecker.isWellFormedSessionName(messageArguments[1]) 
@@ -185,6 +185,7 @@ public class Connection {
 					
 					// Msg zur History hinzufügen...
 					history.add(name + ": " + messageArguments[4]);
+					System.out.println(name + ": " + messageArguments[4]);
 					// Facade über eingegangene Nachricht Informieren, um dessen Observer Objekte zu aktualisieren. 
 					Facade.notifyObservers(this);
 				}else {
