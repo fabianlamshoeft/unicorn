@@ -109,7 +109,7 @@ public class Facade {
 			Connection conn = it.next();
 			System.out.println("Entferne: " + conn.getName());
 			conn.close();
-			it.remove();
+			ConnectionRegistry.remove(conn);
 		}
 		
 		SessionManager.getServerPortListener().setAcceptNewConnections(true);
