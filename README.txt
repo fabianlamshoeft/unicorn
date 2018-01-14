@@ -25,8 +25,8 @@ INHALTSVERZEICHNIS
 -------------------------------------------------------------------------------------
 2. UNICORN BENUTZEN - SCHRITT FÜR SCHRITT ANLEITUNG
 -------------------------------------------------------------------------------------
-Um Unicorn auszuführen müssen Sie die mitgelieferte runnable .jar Datei ausführen.
-Nachdem Sie das Programm gestartet haben erscheint ein Dialogfenster,
+Um Unicorn auszuführen, müssen Sie die mitgelieferte runnable .jar Datei ausführen.
+Nachdem Sie das Programm gestartet haben, erscheint ein Dialogfenster,
 in welchem Sie Ihren Session Namen und den Port eintragen können.
 
 Session Name:   Der Session Name ist der Name, unter dem Sie bei allen verbundenen
@@ -37,14 +37,42 @@ Port:           Der Port gibt an, unter welchem Port nach neu eingehenden Verbin
                 
 Mit einem Klick auf "Los geht's" gelangen Sie auf das Chat Fenster:
 
-... LENA, AM BESTEN MACHST DU HIER WEITER ... IST JA DEINE OBERFLÄCHE ;) ...
+Dort angekommen, müssen Sie zuerst die CONNECTION zu einem anderen Benutzer aufbauen.
+Dies funktioniert entweder durch das Klicken auf den Button "CONNECTION IP Port" oder 
+Sie geben den Befehl einfach in das Textfeld ein. IP und Port müssen Sie dann mit den
+jeweiligen Daten des Users ersetzen, mit welchem Sie sich verbinden wollen.
 
+Wenn Sie nun miteinander verbunden sind, erscheint der Name, die IP-Adresse und der 
+Port des anderen links in Ihrer Peer-Liste.
+
+Wenn Sie anschließend eine Nachricht schreiben wollen, gibt es zwei Möglichkeiten:
+	a) M <Name> <Text>		Die Nachricht <Text> wird an alle Peers geschickt, die 
+							unter dem <Namen> in Ihrer Peer-Liste aufgelistet sind.
+	b) MX <IP> <Port> <Text>	Die NAchricht <Text> wird an genau den Peer in Ihrer
+							Liste geschickt, auf den die angegebene IP und Portnummer
+							passt.
+Erhaltene Nachrichten werden dann im mittleren Bereich des Fenster chronologisch 
+angezeigt.
+
+Nach dem Sie bereits Nachrichten verschickt haben, können Sie auch auf die Eingabe
+von M und MX verzichten und einfach den gewünschten Text schreiben und abschicken. 
+In diesem Fall wird die Nachricht dann an die Person geschickt, an welche Sie als
+letztes eine Nachricht geschickt haben.
+
+Wenn Sie die Verbindungen zu all Ihren Peers wieder aufheben wollen, können Sie den
+DISCONNECT Befehl nutzen.
+
+Sollten Sie dann die ganze Anwendung schließen wollen, können Sie entweder den Befehl
+EXIT eingeben oder aber einfach auf das Kreuz am oberen Fensterrand klicken.
+
+In der rechten Spalte finden Sie nochmal alle Befehle, deren Bedeutung können Sie 
+jederzeit, durch einfaches drüberfahren mit der Maus, nachlesen können.
 -------------------------------------------------------------------------------------
 3. DESIGNENTSCHEIDUNGEN
 -------------------------------------------------------------------------------------
 KOMMUNIKATION:
-Unicorn nutzt ein persistentes Kommunikationsprotokoll (wie HTTP/1.1). Für jeden neuen Peer
-werden zwei neue Sockets verwendet, die an die für den Peer vorgesehenden 
+Unicorn nutzt ein persistentes Kommunikationsprotokoll (wie HTTP/1.1). Für jeden neuen 
+Peer werden zwei neue Sockets verwendet, die an die für den Peer vorgesehenden 
 Ports gebunden sind. Auf diese Weise können Nachrichten (gemäß Aufgabenstellung)
 Simplex ausgetauscht werden. Ein Socket wird ausschließlich zum Nachhören
 auf neue Nachrichten verwendet und der andere Socket ausschließlich zum
@@ -74,7 +102,7 @@ zu können.
 CONNECTION:
 Die Klasse Connection verwaltet die Verbindungsinformationen zu einem einzelnen Peer,
 darunter SessionName, IP-Adresse und Port. Zudem protokolliert Connection alle
-eingehenden und Ausgehenden Nachrichten in einer History mit. Die Verwaltung der 
+eingehenden und ausgehenden Nachrichten in einer History mit. Die Verwaltung der 
 eingehenden und ausgehenden Sockets wird an zwei weitere Klassen weiterdeligiert:
 InputPort und OutputPort.
 
@@ -94,8 +122,8 @@ sendMessage und sendDisconnect.
 ConnectionRegistry befindet:
 
 CONNECTION_REGISTRY:
-Verwaltet die Liste der aktiven Verbindungen. Hierfür werden Methoden zum hinzufügen,
-ausgeben und löschen einzelner Verbindungen zur Verfügung gestellt. Alle Attribute 
+Verwaltet die Liste der aktiven Verbindungen. Hierfür werden Methoden zum Hinzufügen,
+Ausgeben und Löschen einzelner Verbindungen zur Verfügung gestellt. Alle Attribute 
 und Methoden der Klasse sind statisch, um einen zentralen Zugriffspunkt für andere
 Klassen zu realisieren. Die Verwaltung der Liste übernehmen die Klassen 
 ConnectionListManager und OnwardTransmitter. So ist gewärleistet, dass ConnectionRegisty
@@ -104,7 +132,7 @@ alleinig zum "speichern" der Verbindungen genutzt wird.
 -> Listenverwaltung:
 
 CONNECTION_LIST_MANAGER:
-Der ConnectionListManager läuft alle 30 sekunden über die Liste aktiver Verbindungen
+Der ConnectionListManager läuft alle 30 Sekunden über die Liste aktiver Verbindungen
 in der ConnectionRegistry und führt folgende Aktionen aus:
 
 - Löschen veralteter Verbindungen, dessen letzter Poke länger als eine Minute
@@ -140,7 +168,7 @@ Die ConnectionFactory erstellt Connection Objekte. Es gibt zwei Szenarien:
 1. Eine Verbindung soll seitens des Nutzers aufgebaut werden:
 
 Zu diesem Zeitpunkt sind jedoch nur IP-Adresse und Port des Kommunikationspartners bekannt.
-Factory wartet desshalb solange ab bis entweder der "Antwort" Poke des Peers ankommt bwz.
+Factory wartet desshalb solange ab, bis entweder der "Antwort" Poke des Peers ankommt bwz.
 der timeout eintritt.
 
 2. Eine Verbindung soll durch ein reinkommendes Poke eines unbekannten Peers 
@@ -173,12 +201,12 @@ update() wird aufgerufen, wenn sich veränderungen bei einem Verbindungsstatus e
 Connection ergeben haben, z.B. Ein Peer wurde hinzugefügt oder entfernt.
 
 update (Connection conn) wird aufgerufen, wenn eine neue Nachricht bei einer Verbindung 
-eingegangen ist. Hierbei übergibt sich die entsprechende verbindung selbst.
+eingegangen ist. Hierbei übergibt sich die entsprechende Verbindung selbst.
 
 -> Weitere Klassen:
 
 SYNTAX_CHECKER:
 Stellt eine Reihe von statischen Methoden zur verfügung, womit geprüft werden kann,
-ob z.B. IP Adressen ein einem String Syntaktisch korrekt dargestellt sind.
+ob z.B. IP Adressen in einem String syntaktisch korrekt dargestellt sind.
 (und ähnliches)
 
