@@ -61,7 +61,7 @@ public class SyntaxChecker {
 	 * @return Gibt zurück, ob ref ein gültiger SessionName ist.
 	 */
 	public static boolean isWellFormedSessionName(String ref) {
-		return !(ref.contains(" ") || ref.contains("\n"));
+		return !(ref.contains(" ") || ref.contains("\n") || ref.equals(""));
 	}
 	
 	public static boolean isWellFormedMessage(String m)
