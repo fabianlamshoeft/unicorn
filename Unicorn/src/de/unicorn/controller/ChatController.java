@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import de.unicorn.model.Connection;
+import de.unicorn.model.ConnectionRegistry;
 import de.unicorn.model.Facade;
 import de.unicorn.model.IFacadeObserver;
 import de.unicorn.model.SyntaxChecker;
@@ -99,7 +100,13 @@ public class ChatController implements IFacadeObserver{
 				int port = Integer.parseInt(befehlArgu[2]);
 				Facade.sendMessage(befehlArgu[1], port, befehlArgu[3]);
 				chat.getTextFeld().setText("");
+				
+				list.add("An " + ConnectionRegistry.getConnection(befehlArgu[1], port).getName() + ": " + befehlArgu[3]);
+				String [] realList = new String [list.size()];
+				realList = list.toArray(realList);
+				chat.getNachrichten().setListData(realList);
 			}
+			
 		}
 		else if (befehl.startsWith("M")) {
 			letzterEmpf = befehl;
@@ -107,6 +114,11 @@ public class ChatController implements IFacadeObserver{
 			if (SyntaxChecker.isWellFormedSessionName(befehlArgu[1])) {
 				Facade.sendMessage(befehlArgu[1], befehlArgu[2]);
 				chat.getTextFeld().setText("");
+				
+				list.add("An " +  befehlArgu[1] + ": " + befehlArgu[2]);
+				String [] realList = new String [list.size()];
+				realList = list.toArray(realList);
+				chat.getNachrichten().setListData(realList);
 			}
 		}
 		else {
@@ -119,6 +131,13 @@ public class ChatController implements IFacadeObserver{
 					SyntaxChecker.isPortNumber(letzterEmpfArr[2])) {
 					int port = Integer.parseInt(letzterEmpfArr[2]);
 					Facade.sendMessage(letzterEmpfArr[1], port, chat.getTextFeld().getText());
+					
+					
+					list.add("An " + ConnectionRegistry.getConnection(letzterEmpfArr[1], port).getName() + ": " + chat.getTextFeld().getText());
+					String [] realList = new String [list.size()];
+					realList = list.toArray(realList);
+					chat.getNachrichten().setListData(realList);
+					
 					chat.getTextFeld().setText("");
 				}
 			}
@@ -126,6 +145,13 @@ public class ChatController implements IFacadeObserver{
 				String [] letzterEmpfArr = letzterEmpf.split(" ", 3);
 				if (SyntaxChecker.isWellFormedSessionName(letzterEmpfArr[1])) {
 					Facade.sendMessage(letzterEmpfArr[1], chat.getTextFeld().getText());
+					
+					
+					list.add("An " +  letzterEmpfArr[1] + ": " + chat.getTextFeld().getText());
+					String [] realList = new String [list.size()];
+					realList = list.toArray(realList);
+					chat.getNachrichten().setListData(realList);
+					
 					chat.getTextFeld().setText("");
 				}
 			}
