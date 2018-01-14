@@ -74,7 +74,9 @@ public class Connection {
 	public LinkedList<String> getHistory() {
 		return history;
 	}
-
+	/**
+	 * Aktualisiert die PokeTime
+	 */
 	public void updatePokeTime() {
 //		System.out.println("Update Poke Time: " + getName());
 		pokeTime = System.currentTimeMillis();
@@ -112,42 +114,46 @@ public class Connection {
 
 		in.close();
 		out.close();
-		System.out.println("Verbindung: " + getName() + " geschlossen!");
 	}
 	/**
 	 * Stellt fest um was für eine Nachricht es sich handelt und führt abhängig davon die passenden Operationen aus.
 	 * @param message einkommende Nachricht
 	 */
 	public void interpretIncommingMessage(String message) {
-
+		
 		if (message.startsWith("POKE")) {
+			// Fall 1: Es ist eine Poke Nachricht
+			
 			String [] pokeArguments = message.split(" ", 4);
-			// Poke Nachricht auf Gültigkeit prüfen. Falls ungültige Nachricht: ignorieren
+			
+			// Poke Nachricht auf Gültigkeit prüfen. Ist die Syntax der Nachricht falsch, wird die Poke Nachricht ignoriert.
 			if (SyntaxChecker.isWellFormedSessionName(pokeArguments[1]) 
 					&& SyntaxChecker.isWellFormedIpAdress(pokeArguments[2]) && SyntaxChecker.isPortNumber(pokeArguments[3])) {
 				
 				if (pokeArguments[1].equals(name) && pokeArguments[2].equals(ip) && Integer.parseInt(pokeArguments[3]) == peerServerPort) {
-					// Poke Nachricht entspricht den Daten des Kommunikationspartners: PokeTime akutalisieren
+					// Poke Parameter entsprechen den Daten des Kommunikationspartners: PokeTime akutalisieren
 					
 					updatePokeTime();
 					
 				}else {
 					
-					/* Poke Nachricht ungleich dem Kommunikationspartner:
+					/* Poke Parameter ungleich dem Kommunikationspartner:
 					 * Fall 1: 	Nachricht in der Liste bekannter Kommunikationspartner vorhanden:
 					 * 			- PokeTime bei dem jeweiligen Kommunikationspartner aktualisieren
-					 * Fall 2:	Nachricht nicht in der Liste bekannter Peers enthalten:
+					 * 
+					 * Fall 2:	Nachricht nicht in der Liste bekannter Peers enthalten
 					 * 			- Factory für neue Verbindung in ConnectionManager erstellen, welche einen eigenen Poke
 					 * 			  an den neuen Peer schickt
 					 * 			- Poke Nachricht weiterleiten
 					 */
 					
 					if (ConnectionRegistry.hasConnection(pokeArguments[2], Integer.parseInt(pokeArguments[3]))) {
-						// PokeTime Update bei entsprechender Verbindung
+						// PokeTime Update bei entsprechender Verbindung: Connection aus Registry heraussuchen und Poke Update durchführen
 						ConnectionRegistry.getConnection(pokeArguments[1], pokeArguments[2], Integer.parseInt(pokeArguments[3])).updatePokeTime();
 					}else {
-							// Verbindung hinzufügen
+							// Verbindung hinzufügen: Zunächst sicher stellen, dass die Verbindung noch nicht in der Liste von Factories liegt
 						if (!SessionManager.connectionInFactory(pokeArguments[2], Integer.parseInt(pokeArguments[3]))) {
+							
 							SessionManager.sendConnectionPoke(pokeArguments[2], Integer.parseInt(pokeArguments[3]));
 							// Poke weiterleiten
 							ConnectionRegistry.getOnwardTransmitter().forwardPokeMessage(this, pokeArguments[1], pokeArguments[2], Integer.parseInt(pokeArguments[3]));
@@ -161,17 +167,15 @@ public class Connection {
 
 
 		}else if (message.startsWith("MESSAGE")) {
-			System.out.println("Message verstanden!");
 			String [] messageArguments = message.split(" ", 5);
 
 			// Message Nachricht auf Gültigkeit prüfen. Falls ungültige Nachricht: ignorieren
-			System.out.println(message);
+//			System.out.println(message);
 			
 
 			if (SyntaxChecker.isWellFormedSessionName(messageArguments[1]) 
 					&& SyntaxChecker.isWellFormedIpAdress(messageArguments[2]) && SyntaxChecker.isPortNumber(messageArguments[3])
 					&& SyntaxChecker.isWellFormedMessage(messageArguments[4])) {
-				System.out.println("Message wellformed");
 				// Überprüfen, ob der angegebene Peer in der Pokenachricht der Verbindung entspricht, welche über diesen Port senden darf.
 				// Falls ungültig: Nachricht ignorieren
 
@@ -182,7 +186,8 @@ public class Connection {
 					// Msg zur History hinzufügen...
 					history.add(name + ": " + messageArguments[4]);
 					System.out.println(name + ": " + messageArguments[4]);
-					Facade.notifyObservers();
+					// Facade über eingegangene Nachricht Informieren, um dessen Observer Objekte zu aktualisieren. 
+					Facade.notifyObservers(this);
 				}else {
 					
 				}
@@ -198,17 +203,20 @@ public class Connection {
 					&& SyntaxChecker.isWellFormedIpAdress(discArguments[2]) && SyntaxChecker.isPortNumber(discArguments[3])) {
 				
 				/*
-				 * Falls die Disconnect Nachricht die Argumente des verbundenen Peers trägt: Verbindung schließen
+				 * Falls die Disconnect Nachricht die Parameter des verbundenen Peers trägt: Verbindung schließen
 				 * Sonst wurde die Disconnect Nachricht weitergeleitet. In diesem Fall: Falls Verbindung in der Liste vorhanden: Dessen Verbindung schließen
 				 */
+				
 				if (discArguments[1].equals(name) && discArguments[2].equals(ip)
 						&& Integer.parseInt(discArguments[3]) == peerServerPort) {
+					// Eigende Verbindung
 					ConnectionRegistry.getOnwardTransmitter().forwardDisconnectMessage(this, discArguments[1], discArguments[2], Integer.parseInt(discArguments[3]));
 					close();
 					System.out.println("DISCONNECT von: " + discArguments[1]);
 					ConnectionRegistry.remove(this);
 				}else {
 					if (ConnectionRegistry.hasConnection(discArguments[2], Integer.parseInt(discArguments[3]))){
+						// Entsprechende Verbndung aus Registry heraussuchen und Verbindung trennen. Dann Disconnect weiterleiten.
 						Connection closeConn = ConnectionRegistry.getConnection(discArguments[1], discArguments[2], Integer.parseInt(discArguments[3]));
 						closeConn.close();
 						ConnectionRegistry.remove(closeConn);
@@ -223,7 +231,12 @@ public class Connection {
 
 	}
 
-
+	/**
+	 * Überprüft, ob sich die Verbindung mit den angegebenen Parametern identifizieren lässt.
+	 * @param ip IP-Adresse 
+	 * @param port Port
+	 * @return true, falls IP-Adresse und Port mit denen der Verbindung übereinstimmen, sonst false.
+	 */
 	public boolean equals( String ip, int port) {
 		return this.ip.equals(ip) && this.peerServerPort == port;
 	}

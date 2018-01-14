@@ -10,8 +10,10 @@ import java.util.LinkedList;
  * @author fabian
  *
  */
+import java.util.concurrent.ConcurrentLinkedQueue;
 public class ConnectionRegistry {
-	private static LinkedList<Connection> connections = new LinkedList<>();
+	
+	private static ConcurrentLinkedQueue<Connection> connections = new ConcurrentLinkedQueue<Connection>();
 	private static ConnectionListManager listManager = new ConnectionListManager();
 	private static OnwardTransmitter onwardTransmitter = new OnwardTransmitter();
 	

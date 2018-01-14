@@ -52,7 +52,7 @@ public class OnwardTransmitter {
     		Connection c = it.next();
     		if (c.equals(c) || (c.getName().equals(discName) && c.getIP().equals(discIp) && c.getPeerServerPort()== discPort)){
     			
-    			c.getOut().sendPoke(discName, discIp, discPort);
+    			c.getOut().sendDisconnect(discName, discIp, discPort);
     			
     		}
     		

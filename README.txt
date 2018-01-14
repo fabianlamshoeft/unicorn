@@ -51,9 +51,6 @@ Simplex ausgetauscht werden. Ein Socket wird ausschließlich zum Nachhören
 auf neue Nachrichten verwendet und der andere Socket ausschließlich zum
 versenden.
 
-Zudem ist es möglich mit Clients zu kommunizieren, welche nicht persistent arbeiten.
-Dies wird durch eine Erweiterung des ServerPortListeners erreicht,
-siehe: 4. Aufgabenveriteilung der Klassen.
 
 PROGRAMM-ARCHITEKTUR: Unicorn besitzt eine MVC Architektur.
 
@@ -138,9 +135,6 @@ Verbindungen. Wird ein Poke von einem Peer empfangen, welcher noch nicht in der 
 Verbindungen steht, bzw. gerade erstellt wird, wird eine neue Factory mit dieser Verbindung 
 angelegt.
 
-Erweiterung:
-Die Erweiterung des ServerPortListeners verarbeitet neben den POKE Nachrichten auch andere Nachrichten
-
 CONNECTION_FACTORY:
 
 SESSION_MANAGER:
@@ -169,5 +163,3 @@ SYNTAX_CHECKER:
 5. Der Benutzer hat keine Lust mehr:
 
 6. Eine ungültige Nachricht trudelt ein:
-
-7. Ein nicht Persistenter Peer will sich verbinden:
