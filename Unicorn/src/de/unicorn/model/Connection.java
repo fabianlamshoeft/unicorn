@@ -186,7 +186,7 @@ public class Connection {
 					// Msg zur History hinzufügen...
 					history.add(name + ": " + messageArguments[4]);
 					System.out.println(name + ": " + messageArguments[4]);
-					// Facade über eingegangene Nachricht Informieren, um dessen Observer Objekte zu aktualisieren. 
+					Facade.notifyObservers(this);
 					Facade.notifyObservers(this);
 				}else {
 					

@@ -154,7 +154,7 @@ public class Facade {
 	public static void notifyObservers(Connection conn) {
 		Iterator <IFacadeObserver> it = obsList.iterator();
 		while(it.hasNext()) {
-			//it.next().update(); Zweite UpdateMethode abwarten...
+			it.next().updateMessageHistory(conn);
 		}
 	}
 	
