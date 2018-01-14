@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import de.unicorn.model.Connection;
@@ -65,6 +66,7 @@ public class ChatController implements IFacadeObserver{
 		else if (befehl.startsWith("EXIT")) {
 			Facade.exit();
 			chat.getTextFeld().setText("");
+			chat.dispose();
 		}
 		else if (befehl.startsWith("M")) {
 			String [] befehlArgu = befehl.split(" ", 3);
