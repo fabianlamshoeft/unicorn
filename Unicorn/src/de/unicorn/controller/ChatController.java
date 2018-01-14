@@ -3,10 +3,14 @@ package de.unicorn.controller;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.nio.channels.ShutdownChannelGroupException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.Scrollable;
 
 import de.unicorn.model.Connection;
 import de.unicorn.model.Facade;
@@ -67,6 +71,7 @@ public class ChatController implements IFacadeObserver{
 			Facade.exit();
 			chat.getTextFeld().setText("");
 			chat.dispose();
+			System.exit(0);
 		}
 		else if (befehl.startsWith("M")) {
 			String [] befehlArgu = befehl.split(" ", 3);
