@@ -111,10 +111,10 @@ public class Chat extends JFrame {
 		Color c = Color.decode("0x1E647F");
 		textFeld.setForeground(c);
 		textFeld.requestFocusInWindow();
-		textFeld.setSize(new Dimension(1400, 38));
-		textFeld.setPreferredSize(new Dimension(1400, 38));
-		textFeld.setMinimumSize(new Dimension(1400, 38));
-		textFeld.setMaximumSize(new Dimension(1400, 38));
+		textFeld.setSize(new Dimension(14000, 38));
+		textFeld.setPreferredSize(new Dimension(14000, 38));
+		textFeld.setMinimumSize(new Dimension(14000, 38));
+		textFeld.setMaximumSize(new Dimension(14000, 38));
 		
 		//content.add(textFeld, BorderLayout.SOUTH); 
 		
