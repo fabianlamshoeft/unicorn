@@ -9,16 +9,14 @@ import java.util.LinkedList;
 public class SessionManager {
 	private static LinkedList<ConnectionFactory> factories = new LinkedList<>();
 	private static ServerPortListener serverPortListener;
-	
+	private static String sessionName;
+	private static int serverPort;
+	private static String ipAdress;
 	
 	public static ServerPortListener getServerPortListener() {
 		return serverPortListener;
 	}
 
-	private static String sessionName;
-	private static int serverPort;
-	private static String ipAdress;
-	
 	public static int getServerListenerPort() {
 		return serverPort;
 	}
