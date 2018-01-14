@@ -160,6 +160,10 @@ public class Facade {
 		}
 	}
 	
+	public static String getName() {
+		return SessionManager.getSessionName();
+	}
+	
 	public static String getIp() {
 		return SessionManager.getIpAdress();
 	}
