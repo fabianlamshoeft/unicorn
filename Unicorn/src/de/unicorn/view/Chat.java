@@ -16,6 +16,8 @@ import java.awt.event.ComponentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.InetAddress;
 
 import javax.swing.Box;
@@ -311,6 +313,16 @@ public class Chat extends JFrame {
 	                btnOk.doClick();
 	        }
 	    };
+	    
+	    addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+            		controller.exitAndClose();
+            		e.getWindow().dispose();
+            }
+        });
 	    
 	    
 	    

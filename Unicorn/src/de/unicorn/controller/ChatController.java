@@ -23,6 +23,10 @@ public class ChatController implements IFacadeObserver{
 		Facade.register(this);
 	}
 
+	public void exitAndClose() {
+		Facade.exit();
+	}
+	
 	public void btnConnect() {
 		chat.getTextFeld().setText("CONNECT IP Port");
 	}
