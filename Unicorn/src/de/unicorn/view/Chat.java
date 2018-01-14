@@ -41,7 +41,7 @@ import de.unicorn.view.components.BtnUc;
 
 public class Chat extends JFrame {
 	
-	private ChatController controller = new ChatController(this);
+	private ChatController controller;
 	private JTextField textFeld = new JTextField(30);
 	private JList<String> nachrichten = new JList<String>();
 	private JList<String> peers = new JList<String>();
@@ -61,12 +61,14 @@ public class Chat extends JFrame {
 
 	public Chat() throws HeadlessException {
 		setUpElements();
+		controller = new ChatController(this);
 	}
 
-	public Chat(GraphicsConfiguration arg0) {
-		super(arg0);
-		setUpElements();
-	}
+//	public Chat(GraphicsConfiguration arg0) {
+//		super(arg0);
+//		controller = new ChatController(this);
+//		setUpElements();
+//	}
 
 	public Chat(String arg0) throws HeadlessException {
 		super(arg0);
