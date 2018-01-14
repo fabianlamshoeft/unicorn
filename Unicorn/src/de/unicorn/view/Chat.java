@@ -82,7 +82,7 @@ public class Chat extends JFrame {
 //		controller = new ChatController(this);
 //	}
 	
-	public void newScreen() {
+	public static void newScreen() {
 		Chat window = new Chat();
 		window.setTitle("Chat");	
 		//window.setSize(new Dimension(1000, 750));

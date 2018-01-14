@@ -99,7 +99,9 @@ public class ChatController implements IFacadeObserver{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		chat.getPeers().removeAll();
 		chat.getPeers().setListData(Facade.getPeerList());
+		chat.getPeers().repaint();
 	}
 
 	@Override

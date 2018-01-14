@@ -24,8 +24,7 @@ public class LoginController {
 		{
 			try {
 				Facade.startUp(login.textfieldName.getText(), InetAddress.getLocalHost().getHostAddress(), Integer.parseInt(login.textfieldPort.getText()));
-				Chat neuesFenster = new Chat();
-				neuesFenster.newScreen();
+				Chat.newScreen();
 				
 				login.window.setVisible(false);
 			} catch (Exception e) {
@@ -43,11 +42,11 @@ public class LoginController {
 				{
 					login.textfieldPort.setText("");
 					JOptionPane.showMessageDialog(null,
-							"Der Name darf nicht leer sein oder Leerzeichen oder Zeilenumbrüche enthalten und die Portnummer muss zwischen 1024 und 65535 liegen!");
+							"Der Name darf nicht leer sein oder Leerzeichen oder Zeilenumbrï¿½che enthalten und die Portnummer muss zwischen 1024 und 65535 liegen!");
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "Der Name darf nicht leer sein oder Leerzeichen oder Zeilenumbrüche enthalten");
+					JOptionPane.showMessageDialog(null, "Der Name darf nicht leer sein oder Leerzeichen oder Zeilenumbrï¿½che enthalten");
 				}
 			}
 			else
