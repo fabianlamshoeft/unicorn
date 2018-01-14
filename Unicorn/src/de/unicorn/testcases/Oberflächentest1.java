@@ -8,8 +8,7 @@ class Oberflächentest1 {
 
 	@Test
 	void test() {
-		Chat testChat = new Chat();
-		testChat.newScreen();
+		Chat.newScreen();
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {

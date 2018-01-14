@@ -30,6 +30,7 @@ import javax.swing.ListSelectionModel;
 import de.unicorn.controller.ChatController;
 import de.unicorn.model.Facade;
 
+@SuppressWarnings("serial")
 public class Chat extends JFrame {
 	
 	private ChatController controller;
