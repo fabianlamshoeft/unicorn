@@ -45,12 +45,19 @@ public class OnwardTransmitter {
      */
     
     public void forwardDisconnectMessage(Connection conn, String discName, String discIp, int discPort) {
+    	try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Automatisch generierter Erfassungsblock
+			e.printStackTrace();
+		}
+    	
     	Iterator <Connection> it = ConnectionRegistry.getIterator();
     	
     	while (it.hasNext()) {
     		
     		Connection c = it.next();
-    		if (c.equals(c) || (c.getName().equals(discName) && c.getIP().equals(discIp) && c.getPeerServerPort()== discPort)){
+    		if (!(c.equals(conn) || (c.getName().equals(discName) && c.getIP().equals(discIp) && c.getPeerServerPort()== discPort))){
     			
     			c.getOut().sendDisconnect(discName, discIp, discPort);
     			
