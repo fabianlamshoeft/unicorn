@@ -1,6 +1,7 @@
 package de.unicorn.model;
 
 import java.util.Iterator;
+
 /**
  * ConnectionRegistry hält die Liste aktiver Verbindungen. 
  * Dafür stellt ConnectionRegistry Metoden zum Hinzufügen, Heraussuchen und Löschen zur Verfügung.
@@ -12,6 +13,9 @@ import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 public class ConnectionRegistry {
 	
+	/**
+	 * Liste von Connections
+	 */
 	private static ConcurrentLinkedQueue<Connection> connections = new ConcurrentLinkedQueue<Connection>();
 	private static ConnectionListManager listManager = new ConnectionListManager();
 	private static OnwardTransmitter onwardTransmitter = new OnwardTransmitter();
@@ -29,6 +33,7 @@ public class ConnectionRegistry {
 	
 	/**
 	 * Gibt die erste Verbindung zurück, welche zu den angegebenen Attributen passt.
+	 * 
 	 * @param name Sessionname
 	 * @param ip IP-Adresse
 	 * @param port Port
@@ -49,6 +54,14 @@ public class ConnectionRegistry {
 		
 		return null;
 	}
+	/**
+	 * Gibt die erste Verbindung zurück, welche zu den angegebenen Attributen passt.
+	 * 
+	 * @param ip IP-Adresse
+	 * @param port Port
+	 * @return Gibt die Referenz auf das Connectionobjekt zurück. Falls keine Connection
+	 * mit den passenden Attributen gefunden wird, gibt die Methode null zurück.
+	 */
 	public static Connection getConnection(String ip, int port) {
 			
 			Iterator<Connection> it = connections.iterator();
@@ -63,6 +76,9 @@ public class ConnectionRegistry {
 			
 			return null;
 	}
+	/**
+	 * @return Gr��e der Liste von Connections
+	 */
 	public static int getSize() {
 		return connections.size();
 	}
@@ -75,7 +91,6 @@ public class ConnectionRegistry {
 		System.out.println("Verbindung aus der Liste entfernt: " + conn.getName());
 		Facade.notifyObservers();
 	}
-	
 	/**
 	 * Entfernt die erste Verbindung aus der Liste, welche mit den angegebenen Daten übereinstimmt.
 	 * @param name SessionName
@@ -116,7 +131,13 @@ public class ConnectionRegistry {
 	public static OnwardTransmitter getOnwardTransmitter() {
 		return onwardTransmitter;
 	}
-	
+	/**
+	 * Durchl�uft die Liste und guckt, ob die Connection mit den Parametern bereits vorhanden ist.
+	 * 
+	 * @param ip IP-Adresse
+	 * @param port Port
+	 * @return ob die Connection in der Liste ist
+	 */
 	public static boolean hasConnection(String ip, int port) {
 		Iterator<Connection> it = connections.iterator();
 		
