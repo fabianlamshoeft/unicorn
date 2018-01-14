@@ -16,19 +16,29 @@ import java.util.Iterator;
  *
  */
 public class ConnectionListManager extends Thread{
-
-	private boolean isRunning = false;
-	private boolean hold = false;
-	private long lastUpdate = System.currentTimeMillis();
+	
 	/**
-	 * Beschreibt das Vorgehen des ConnectionListManagers
+	 * Sagt aus, ob der Thread laufen kann oder nicht.
+	 */
+	private boolean isRunning = false;
+	/**
+	 * Hält den Thread an, sodass er nichts macht, aber weiterläuft.
+	 */
+	private boolean hold = false;
+	/**
+	 * Zeitpunkt des letzten Updates
+	 */
+	private long lastUpdate = System.currentTimeMillis();
+	
+	/**
+	 * Geht durch die Liste aktuell verbundener Peers und guckt, ob die Peers aktuell sind. Wenn ja,
+	 * dann wird automatisch alle 30 Sekunden ein Poke gesendet. Wenn nicht, so wird die
+	 * Connection geschlossen und aus der Liste der ConnectionRegistry gelöscht.
 	 */
 	public void run() {
 		
 		while (isRunning) {
 			if (((System.currentTimeMillis() - lastUpdate) >= 30000) && !hold) {
-				
-				
 				
 				Iterator <Connection> it = ConnectionRegistry.getIterator();
 				Connection conn;
@@ -55,11 +65,18 @@ public class ConnectionListManager extends Thread{
 		}
 		
 	}
+	
+	/**
+	 * Setzt einen Wert für hold und kann so die Funktion des ConnectionListManagers aktivieren oder
+	 * aussetzen lassen ohne den Thread zu beenden.
+	 * 
+	 * @param hold Sagt, ob die Funktionen angehalten werden sollen oder nicht.
+	 */
 	public void setHold(boolean hold) {
 		this.hold = hold;
 	}
 	/**
-	 * Startet den Tread ConnectionListManager.
+	 * Startet den Thread ConnectionListManager.
 	 */
 	public void startListManager() {
 		isRunning = true;

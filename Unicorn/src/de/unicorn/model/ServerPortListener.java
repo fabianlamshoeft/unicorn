@@ -5,6 +5,14 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * ServerPortListener ist ein eigener Thread, der den ServerSocket und somit den allgemeinen
+ * Port verwaltet, auf dem der Peer für andere Peers erreichbar ist. Somit bestimmt der ServerPortListener
+ * das Verhalten beim Eintreffen von Poke-Nachrichten unbekannter Peers.
+ * 
+ * @author Simon
+ *
+ */
 public class ServerPortListener extends Thread{
 	private ServerSocket serverSocket;
 	private boolean isRunning = false;
@@ -69,11 +77,17 @@ public class ServerPortListener extends Thread{
 		
 	}
 	
+	/**
+	 * Startet den ServerPortListener.
+	 */
 	public void start() {
 		isRunning = true;
 		setAcceptNewConnections(true);
 		super.start();
 	}
+	/**
+	 * Beendet den ServerPortListener und schließt den ServerSocket.
+	 */
 	public void close()
 	{
 		setAcceptNewConnections(false);

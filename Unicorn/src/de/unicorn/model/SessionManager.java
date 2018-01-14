@@ -7,23 +7,50 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class SessionManager {
+	/**
+	 * Liste von ConnectionFactories für den Fall, dass mehrere Peers sich gleichzeitig verbinden wollen.
+	 */
 	private static LinkedList<ConnectionFactory> factories = new LinkedList<>();
 	private static ServerPortListener serverPortListener;
+	/**
+	 * Name des Peers
+	 */
 	private static String sessionName;
-	private static int serverPort;
+	/**
+	 * IP-Adresse des Peers
+	 */
 	private static String ipAdress;
+	/**
+	 * Port des ServerSockets des Peers
+	 */
+	private static int serverPort;
+	
+	
+	public static String getSessionName() {
+		return sessionName;
+	}
+	public static void setSessionName(String sessionN) {
+		sessionName = sessionN;
+	}
+
+	public static String getIpAdress() {
+		return ipAdress;
+	}
+	public static void setIpAdress(String ipAdress) {
+		SessionManager.ipAdress = ipAdress;
+	}
+	
+	public static int getServerListenerPort() {
+		return serverPort;
+	}
+	public static void setServerListenerPort(int serverListenerP) {
+		serverPort = serverListenerP;
+	}
 	
 	public static ServerPortListener getServerPortListener() {
 		return serverPortListener;
 	}
-
-	public static int getServerListenerPort() {
-		return serverPort;
-	}
-
-	public static void setServerListenerPort(int serverListenerP) {
-		serverPort = serverListenerP;
-	}
+	
 
 	public static void addFactory(ConnectionFactory fac)
 	{
@@ -37,7 +64,6 @@ public class SessionManager {
 //		}
 //		System.out.println("---------------------------");
 	}
-	
 	public static void removeFactory(ConnectionFactory fac)
 	{
 		factories.remove(fac);
@@ -139,20 +165,6 @@ public class SessionManager {
 		return null;
 	}
 
-	public static String getSessionName() {
-		return sessionName;
-	}
-
-	public static void setSessionName(String sessionN) {
-		sessionName = sessionN;
-	}
-
-	public static String getIpAdress() {
-		return ipAdress;
-	}
-
-	public static void setIpAdress(String ipAdress) {
-		SessionManager.ipAdress = ipAdress;
-	}
+	
 	
 }

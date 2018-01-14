@@ -58,7 +58,6 @@ public class ConnectionFactory {
 			
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				while (System.currentTimeMillis() - creationTime <= 5000 && !pokeArrived) {
 					// warten
 					try {
@@ -97,7 +96,7 @@ public class ConnectionFactory {
 	 * @param name Name des Peers der zu erstellenden Verbindung
 	 * @param ip IP-Adresse der zu erstellenden Verbindung
 	 * @param port Port der zu erstellenden Verbindung
-	 * @param in Socket, über den die Poke-Nachricht ankommt.
+	 * @param in Socket, über den die Poke-Nachricht ankommen wird.
 	 */
 	public void setFactoryData(String name, String ip, int port, Socket in) {
 		conn = new Connection();
@@ -132,10 +131,10 @@ public class ConnectionFactory {
 		return conn;
 	}
 	/**
-	 * Vollendet die zu erstellende Connection, fügt sie der Liste von Connections in
+	 * Vollendet die zu erstellende Connection direkt, fügt sie der Liste von Connections in
 	 * der ConnectionRegistry hinzu und löscht sich dann selbst.
 	 * 
-	 * Soll aufgerufen werden, wenn ein Rückpoke ankommt.
+	 * Soll aufgerufen werden, wenn ein neuer ConnectionPoke ankommt.
 	 */
 	public void createWithIncomingPoke()
 	{
@@ -149,12 +148,13 @@ public class ConnectionFactory {
 	}
 	
 	/**
-	 * Wenn der
+	 * Vollendet die zu erstellende Verbindung mit dem Namen des Peers, den man beim Senden der
+	 * ersten Poke-Nachricht noch nicht kennt, und dem Socket für den InputPort.
 	 * 
-	 * Soll aufgerufen werden, wenn sich der Peer mit einem anderen Peer verbinden will.
+	 * Soll aufgerufen werden, wenn ein Rückpoke von dem zu verbindenen Peer kommt.
 	 * 
-	 * @param name
-	 * @param in
+	 * @param name Name des verbundenen Peers
+	 * @param in Socket, über den die Poke-Nachricht kam
 	 */
 	public void createWithOutgoingPoke(String name, Socket in)
 	{
@@ -182,7 +182,7 @@ public class ConnectionFactory {
 		}
 	}
 	/**
-	 * löscht diese Factory aus der Liste des SessionManagers.
+	 * Löscht diese Factory aus der Liste des SessionManagers.
 	 */
 	private void destroy() {
 		SessionManager.removeFactory(this);
