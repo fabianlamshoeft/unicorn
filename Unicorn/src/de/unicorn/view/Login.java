@@ -54,6 +54,8 @@ public class Login{
 		window.setSize(400, 280);
 		window.setMinimumSize(new Dimension(400, 280));
 		setupContent(window);
+		
+		window.setResizable(false);
 																// ganze Anwendung schließt, wenn Eigenschaft gesetzt ist
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	// EXIT_ON_CLOSE nicht immer benutzen!!!
 
