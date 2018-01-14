@@ -1,7 +1,5 @@
 package de.unicorn.testcases;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,7 +9,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.unicorn.model.Connection;
@@ -91,6 +88,7 @@ testClient = new Thread(new Runnable() {
 					br.close();
 					clientOut.close();
 					clientIn.close();
+					clientServerSocket.close();
 					
 					
 				} catch (UnknownHostException e) {
@@ -102,6 +100,10 @@ testClient = new Thread(new Runnable() {
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}
+				finally
+				{
+					
 				}
 				
 				
@@ -140,6 +142,7 @@ testClient = new Thread(new Runnable() {
 					
 					conn.getIn().close();
 					conn.getOut().close();
+					testServerSocket.close();
 					System.out.println("Fertig");
 					
 				} catch (IOException e) {

@@ -1,6 +1,5 @@
 package de.unicorn.controller;
 
-import java.net.InetAddress;
 import java.util.Scanner;
 
 import de.unicorn.model.Connection;
@@ -82,6 +81,10 @@ public class TerminalController extends Thread implements IFacadeObserver{
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		finally
+		{
+			s.close();
 		}
 		
 		
