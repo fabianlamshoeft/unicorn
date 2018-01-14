@@ -187,7 +187,6 @@ public class Connection {
 					history.add(name + ": " + messageArguments[4]);
 					System.out.println(name + ": " + messageArguments[4]);
 					Facade.notifyObservers(this);
-					Facade.notifyObservers(this);
 				}else {
 					
 				}
