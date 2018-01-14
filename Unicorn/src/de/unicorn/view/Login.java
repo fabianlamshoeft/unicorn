@@ -13,6 +13,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.print.attribute.standard.JobHoldUntil;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -77,23 +78,43 @@ public class Login{
 		button.setForeground(Color.decode("0x1E647F"));
 		button.setBackground(Color.decode("0xFFD75D"));
 		
+		JLabel labelName = new JLabel("Name");
+		JLabel labelPort = new JLabel("Port");
+		
+		labelName.setForeground(Color.decode("0x1E647F"));
+		labelName.setFont(new Font("Arial", Font.BOLD, 14));
+		labelPort.setForeground(Color.decode("0x1E647F"));
+		labelPort.setFont(new Font("Arial", Font.BOLD, 14));
+		
 		
 		textfieldName.setPreferredSize(new Dimension(200, 40));
 		textfieldName.setFont(new Font("Arial", Font.PLAIN, 14));
 		textfieldName.setForeground(Color.decode("0x1E647F"));
-		textfieldName.setText("Name");
+		textfieldName.setText("");
 		
 		textfieldPort.setPreferredSize(new Dimension(200, 40));
 		textfieldPort.setFont(new Font("Arial", Font.PLAIN, 14));
 		textfieldPort.setForeground(Color.decode("0x1E647F"));
-		textfieldPort.setText("Port");
+		textfieldPort.setText("");
 		
 		SpringLayout nameLayout = new SpringLayout();
+		nameLayout.putConstraint(SpringLayout.EAST, labelName,
+				-250,
+                SpringLayout.EAST, nameLay);
+		nameLayout.putConstraint(SpringLayout.NORTH, labelName,
+                53,
+                SpringLayout.NORTH, nameLay);
 		nameLayout.putConstraint(SpringLayout.EAST, textfieldName,
 				-45,
                 SpringLayout.EAST, nameLay);
 		nameLayout.putConstraint(SpringLayout.NORTH, textfieldName,
                 40,
+                SpringLayout.NORTH, nameLay);
+		nameLayout.putConstraint(SpringLayout.EAST, labelPort,
+				-250,
+                SpringLayout.EAST, nameLay);
+		nameLayout.putConstraint(SpringLayout.NORTH, labelPort,
+                98,
                 SpringLayout.NORTH, nameLay);
 		nameLayout.putConstraint(SpringLayout.EAST, textfieldPort,
 				-45,
@@ -110,7 +131,9 @@ public class Login{
 		
 		nameLay.setLayout(nameLayout);
 		
+		nameLay.add(labelName);
 		nameLay.add(textfieldName);
+		nameLay.add(labelPort);
 		nameLay.add(textfieldPort);
 		nameLay.add(button);
 		
