@@ -42,7 +42,7 @@ public class LoginController {
 				{
 					login.textfieldPort.setText("");
 					JOptionPane.showMessageDialog(null,
-							"Der Name darf nicht leer sein oder Leerzeichen oder Zeilenumbr�che enthalten und die Portnummer muss zwischen 1024 und 65535 liegen!");
+							"<html>Der Name darf nicht leer sein oder Leerzeichen oder Zeilenumbr&uuml;che enthalten und die Portnummer muss zwischen 1024 und 65535 liegen!</html>");
 				}
 				else
 				{

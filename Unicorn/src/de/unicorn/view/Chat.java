@@ -86,7 +86,7 @@ public class Chat extends JFrame {
 		Chat window = new Chat();
 		window.setTitle("Chat - " + Facade.getName() + " - " + Facade.getPort());	
 		//window.setSize(new Dimension(1000, 750));
-		window.setMinimumSize(new Dimension(400, 300));
+		window.setMinimumSize(new Dimension(700, 320));
 		
 		
 		Toolkit t = Toolkit.getDefaultToolkit(); 

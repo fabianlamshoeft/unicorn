@@ -23,6 +23,8 @@ public class ChatController implements IFacadeObserver{
 	private Chat chat;
 	private ArrayList<String> list = new ArrayList<>();
 	
+	private String letzterEmpf = null; 
+	
 	public ChatController(Chat c) {
 		this.chat = c;
 		Facade.register(this);
@@ -74,6 +76,7 @@ public class ChatController implements IFacadeObserver{
 			System.exit(0);
 		}
 		else if (befehl.startsWith("MX")) {
+			letzterEmpf = befehl;
 			String [] befehlArgu = befehl.split(" ", 4);
 			if (SyntaxChecker.isWellFormedIpAdress(befehlArgu[1]) &&
 				SyntaxChecker.isPortNumber(befehlArgu[2])) {
@@ -83,6 +86,7 @@ public class ChatController implements IFacadeObserver{
 			}
 		}
 		else if (befehl.startsWith("M")) {
+			letzterEmpf = befehl;
 			String [] befehlArgu = befehl.split(" ", 3);
 			if (SyntaxChecker.isWellFormedSessionName(befehlArgu[1])) {
 				Facade.sendMessage(befehlArgu[1], befehlArgu[2]);
@@ -90,7 +94,25 @@ public class ChatController implements IFacadeObserver{
 			}
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Beginne die Eingabe mit einem Befehl aus der Befehlleiste.");
+			if (letzterEmpf == null) {
+				JOptionPane.showMessageDialog(null, "Beginne die Eingabe mit einem Befehl aus der Befehlleiste.");
+			}
+			else if (letzterEmpf.startsWith("MX")) {
+				String [] letzterEmpfArr = letzterEmpf.split(" ", 4);
+				if (SyntaxChecker.isWellFormedIpAdress(letzterEmpfArr[1]) &&
+					SyntaxChecker.isPortNumber(letzterEmpfArr[2])) {
+					int port = Integer.parseInt(letzterEmpfArr[2]);
+					Facade.sendMessage(letzterEmpfArr[1], port, chat.getTextFeld().getText());
+					chat.getTextFeld().setText("");
+				}
+			}
+			else if (letzterEmpf.startsWith("M")) {
+				String [] letzterEmpfArr = letzterEmpf.split(" ", 3);
+				if (SyntaxChecker.isWellFormedSessionName(letzterEmpfArr[1])) {
+					Facade.sendMessage(letzterEmpfArr[1], chat.getTextFeld().getText());
+					chat.getTextFeld().setText("");
+				}
+			}
 		}
 	}
 	
