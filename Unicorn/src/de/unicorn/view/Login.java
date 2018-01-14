@@ -13,8 +13,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.print.attribute.standard.JobHoldUntil;
-import javax.swing.BoxLayout;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,7 +22,10 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import de.unicorn.controller.LoginController;
-
+/**
+ * Stellt die Benutzeroberfläche des ersten sich öffnenden Fensters der Anwendung da.
+ * 
+ */
 public class Login{
 
 	// private Variablen zur Größe/Ausrichtung des Fensters
