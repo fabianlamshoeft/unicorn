@@ -101,20 +101,20 @@ public class Chat extends JFrame {
 
 	private  void setUpElements() {
 		
-		Container content = this.getContentPane();
-
+		Container alles = this.getContentPane();
+		JPanel content = new JPanel();
 		content.setBackground(Color.decode("0xFFFFFF"));
 		content.setLayout(new BorderLayout());
-		
+		content.setBorder(BorderFactory.createLineBorder(Color.decode("0x1E647F"), 1));
 		
 		//textFeld.setSize(textFeld.getPreferredSize());
 		Color c = Color.decode("0x1E647F");
 		textFeld.setForeground(c);
 		textFeld.requestFocusInWindow();
-		textFeld.setSize(new Dimension(1400, 38));
-		textFeld.setPreferredSize(new Dimension(1400, 38));
-		textFeld.setMinimumSize(new Dimension(1400, 38));
-		textFeld.setMaximumSize(new Dimension(1400, 38));
+		textFeld.setSize(new Dimension(14000, 38));
+		textFeld.setPreferredSize(new Dimension(14000, 38));
+		textFeld.setMinimumSize(new Dimension(14000, 38));
+		textFeld.setMaximumSize(new Dimension(14000, 38));
 		
 		//content.add(textFeld, BorderLayout.SOUTH); 
 		
@@ -246,6 +246,7 @@ public class Chat extends JFrame {
 		content.add(chatbereich, BorderLayout.CENTER);
 		content.add(rechts, BorderLayout.EAST);
 		
+		alles.add(content);
 		
 		
 		// Befehlsbuttons mit ChatController verknüpfen, um Funktionen zu setzen
