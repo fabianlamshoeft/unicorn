@@ -78,8 +78,8 @@ public class Login{
 		button.setForeground(Color.decode("0x1E647F"));
 		button.setBackground(Color.decode("0xFFD75D"));
 		
-		JLabel labelName = new JLabel("Name");
-		JLabel labelPort = new JLabel("Port");
+		JLabel labelName = new JLabel("Name:");
+		JLabel labelPort = new JLabel("Port:");
 		
 		labelName.setForeground(Color.decode("0x1E647F"));
 		labelName.setFont(new Font("Arial", Font.BOLD, 14));

@@ -92,7 +92,6 @@ public class Chat extends JFrame {
 		//int y = (int) (d.getHeight() - 750) / 2;					// Zentrum des Bildschirms berechnen
 		window.setBounds(x, 0, 1000, 750);
 		
-		//window.pack();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 	}
@@ -189,40 +188,32 @@ public class Chat extends JFrame {
 		ipAdresse.setForeground(Color.decode("0x1E647F"));
 		ipAdresse.setBackground(Color.decode("0x1E647F"));
 		ipAdresse.setFont(new Font("Arial", Font.PLAIN, 14));
+		ipAdresse.setBorder(BorderFactory.createLineBorder(Color.decode("0x1E647F"), 1));
 
-		
-		
-		
-
-		peers.setSize(new Dimension(170, 1000));
-		peers.setPreferredSize(new Dimension(170,1000));
-		peers.setMinimumSize(new Dimension(170, 1000));
-		peers.setMaximumSize(new Dimension(170,1000));
 		peers.setBackground(Color.decode("0xFFFFFF"));
 		peers.setForeground(Color.decode("0x1E647F"));
-		
 		
 		JPanel unten = new JPanel();
 		unten.setLayout(new BoxLayout(unten, BoxLayout.X_AXIS));
 		unten.setBackground(Color.decode("0xFFFFFF"));
-		//unten.add(Box.createHorizontalGlue());
 		unten.add(textFeld);
-		
+		unten.setBorder(BorderFactory.createLineBorder(Color.decode("0x1E647F"), 1));
 		
 		nachrichten.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		nachrichten.setSelectionForeground(Color.decode("0x1E647F"));
-		
 		
 		JPanel chatbereich = new JPanel();
 		chatbereich.setBackground(Color.decode("0xFFFFFF"));
 		chatbereich.setLayout(new BoxLayout(chatbereich, BoxLayout.Y_AXIS));
 		chatbereich.add(Box.createVerticalGlue());
 		JScrollPane scroller = new JScrollPane(nachrichten);
+		scroller.setMaximumSize(getMaximumSize());
 		scroller.setBorder(BorderFactory.createLineBorder(Color.decode("0x1E647F"), 1));
 		chatbereich.add(scroller);
 		chatbereich.add(unten);
 		
 		JPanel rechts = new JPanel();
+		rechts.setBorder(BorderFactory.createLineBorder(Color.decode("0x1E647F"), 1));
 		rechts.setSize(rechts.getPreferredSize());
 		rechts.setBackground(Color.decode("0xFFFFFF"));
 		rechts.setLayout(new BoxLayout(rechts, BoxLayout.Y_AXIS));
@@ -239,7 +230,6 @@ public class Chat extends JFrame {
 		rechts.add(Box.createVerticalGlue());
 		rechts.add(btnOk);
 		
-		
 		content.getSize(new Dimension(WIDTH, 400));
 		content.setBounds(100, 100, WIDTH, 400);
 		content.setForeground(Color.decode("0x1E647F"));
@@ -248,7 +238,6 @@ public class Chat extends JFrame {
 		content.add(ipAdresse, BorderLayout.BEFORE_FIRST_LINE);
 		JScrollPane scrollerPeers = new JScrollPane(peers);
 		scrollerPeers.setBorder(BorderFactory.createLineBorder(Color.decode("0x1E647F"), 1));
-		scrollerPeers.setHorizontalScrollBarPolicy(ScrollPane.SCROLLBARS_AS_NEEDED);
 		chatbereich.add(scrollerPeers);
 		content.add(scrollerPeers, BorderLayout.WEST);
 		content.add(chatbereich, BorderLayout.CENTER);
