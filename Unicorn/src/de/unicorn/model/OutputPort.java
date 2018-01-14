@@ -2,9 +2,7 @@ package de.unicorn.model;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 /**
  * OutputPort verwaltet den Socket, über welchen Nachrichten gesendet werden sollen und stellt hiefür nach 

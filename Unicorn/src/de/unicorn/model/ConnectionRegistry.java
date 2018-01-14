@@ -1,7 +1,6 @@
 package de.unicorn.model;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 /**
  * ConnectionRegistry hält die Liste aktiver Verbindungen. 
  * Dafür stellt ConnectionRegistry Metoden zum Hinzufügen, Heraussuchen und Löschen zur Verfügung.
