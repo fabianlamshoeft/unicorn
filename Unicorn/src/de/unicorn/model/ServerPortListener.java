@@ -18,6 +18,9 @@ public class ServerPortListener extends Thread{
 	private boolean isRunning = false;
 	private boolean acceptNewConnections = false;
 	
+	/**
+	 * Verarbeitung der beim ServerSocket ankommenden Nachrichten.
+	 */
 	public void run() {
 		
 		try {
@@ -106,11 +109,17 @@ public class ServerPortListener extends Thread{
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Guckt, ob eine neue Verbindung aufgebaut werden kann.
+	 * @return ob neue Verbindungen aufgebaut werden dürfen.
+	 */
 	public boolean acceptingNewConnections() {
 		return acceptNewConnections;
 	}
-
+	/**
+	 * Setzt, ob neue Verbindungen aufgebaut werden dürfen oder nicht.
+	 * @param acceptNewConnections Wert, ob neue Verbindung aufgebaut werden darf.
+	 */
 	public void setAcceptNewConnections(boolean acceptNewConnections) {
 		this.acceptNewConnections = acceptNewConnections;
 	}

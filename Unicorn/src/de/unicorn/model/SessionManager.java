@@ -26,6 +26,7 @@ public class SessionManager {
 	private static int serverPort;
 	
 	
+	// Getter und Setter:
 	public static String getSessionName() {
 		return sessionName;
 	}
@@ -51,7 +52,11 @@ public class SessionManager {
 		return serverPortListener;
 	}
 	
-
+	
+	/**
+	 * Fügt eine ConnectionFactory der Liste von Factories hinzu.
+	 * @param fac hinzuzufügende ConnectionFactory
+	 */
 	public static void addFactory(ConnectionFactory fac)
 	{
 		factories.add(fac);
@@ -64,6 +69,10 @@ public class SessionManager {
 //		}
 //		System.out.println("---------------------------");
 	}
+	/**
+	 * Entfernt die übergebene ConnectionFactory aus der Liste von Factories.
+	 * @param fac zu entfernende Factory
+	 */
 	public static void removeFactory(ConnectionFactory fac)
 	{
 		factories.remove(fac);
@@ -83,8 +92,11 @@ public class SessionManager {
 	public static void startServerPortListener()
 	{
 		serverPortListener = new ServerPortListener();
-		serverPortListener.start();;
+		serverPortListener.start();
 	}
+	/**
+	 * Beendet den ServerPortListener.
+	 */
 	public static void stopServerPortListener() {
 		serverPortListener.close();
 	}
@@ -109,10 +121,12 @@ public class SessionManager {
 		return false;
 	}
 	
-	/**
-	 * 
-	 */
 	@SuppressWarnings("resource")
+	/**
+	 * Sendet einen Poke an die mit den Parametern bestimmte Verbindung.
+	 * @param ip IP-Adresse des Ziels
+	 * @param port Port des Ziels
+	 */
 	public static void sendConnectionPoke(String ip, int port)
 	{
 		Socket poker = new Socket();
@@ -126,8 +140,6 @@ public class SessionManager {
 			
 			OutputPort out = new OutputPort(poker);
 			out.sendPoke();
-			
-			
 			
 		} catch (UnknownHostException e) {
 			try {

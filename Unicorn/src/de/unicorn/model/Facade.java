@@ -143,7 +143,7 @@ public class Facade {
 		obsList.remove(obs);
 	}
 	/**
-	 * Informiert alle Observer der Facade über eine Änderung im Model.
+	 * Informiert alle Observer der Facade über eine Änderung in der Liste der ConnectionRegistry.
 	 */
 	public static void notifyObservers(){
 		Iterator <IFacadeObserver> it = obsList.iterator();
@@ -153,6 +153,12 @@ public class Facade {
 		}
 		System.out.println("ich sage es allen weiter...");
 	}
+	/**
+	 * Informiert alle Observer �ber eine neu eingehende Nachricht in einer Verbindung.
+	 * 
+	 * @param conn Das Connection-Objekt, bei dem die Nachricht angekommen ist �bergibt sich selbst
+	 * an alle Observer.
+	 */
 	public static void notifyObservers(Connection conn) {
 		Iterator <IFacadeObserver> it = obsList.iterator();
 		while(it.hasNext()) {

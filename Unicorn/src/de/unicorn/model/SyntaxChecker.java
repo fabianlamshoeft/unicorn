@@ -21,6 +21,11 @@ public class SyntaxChecker {
 		}
 	}
 	
+	/**
+	 * Überprüft, ob s eine gültige Portnummer ist.
+	 * @param s übergebene Portnummer als String
+	 * @return ob s eine gültige Portnummer ist.
+	 */
 	public static boolean isPortNumber(String s)
 	{
 		if(isNummeric(s) && Integer.parseInt(s) > 1023 && Integer.parseInt(s) < 65536)
@@ -56,14 +61,18 @@ public class SyntaxChecker {
 		}	
 	}
 	/**
-	 * ÃœberprÃ¼ft, ob der SessionName keine Leerzeichen oder ZeilenumbrÃ¼che besitzt.
+	 * ÃœberprÃ¼ft, ob der SessionName keine Leerzeichen oder ZeilenumbrÃ¼che enthält.
 	 * @param ref String, der Ã¼berprÃ¼ft werden soll
 	 * @return Gibt zurÃ¼ck, ob ref ein gÃ¼ltiger SessionName ist.
 	 */
 	public static boolean isWellFormedSessionName(String ref) {
 		return !(ref.contains(" ") || ref.contains("\n") || ref.equals(""));
 	}
-	
+	/**
+	 * Überprüft, ob eine Nachricht keine Zeilenumbrüche enthält.
+	 * @param m die zu sendende Nachricht
+	 * @return ob m eine gültige Nachricht ist.
+	 */
 	public static boolean isWellFormedMessage(String m)
 	{
 		return !(m.contains("\n"));
