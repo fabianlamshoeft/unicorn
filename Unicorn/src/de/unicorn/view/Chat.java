@@ -38,7 +38,11 @@ import de.unicorn.controller.LoginController;
 import de.unicorn.model.Connection;
 import de.unicorn.model.Facade;
 import de.unicorn.view.components.BtnUc;
-
+/**
+ * 
+ * @author lenascholz
+ *
+ */
 public class Chat extends JFrame {
 	
 	private ChatController controller;
@@ -63,36 +67,15 @@ public class Chat extends JFrame {
 		setUpElements();
 		controller = new ChatController(this);
 	}
-
-//	public Chat(GraphicsConfiguration arg0) {
-//		super(arg0);
-//		controller = new ChatController(this);
-//		setUpElements();
-//	}
-//
-//	public Chat(String arg0) throws HeadlessException {
-//		super(arg0);
-//		setUpElements();
-//		controller = new ChatController(this);
-//	}
-//
-//	public Chat(String arg0, GraphicsConfiguration arg1) {
-//		super(arg0, arg1);
-//		setUpElements();
-//		controller = new ChatController(this);
-//	}
 	
 	public static void newScreen() {
-		Chat window = new Chat();
-		window.setTitle("Chat - " + Facade.getName() + " - " + Facade.getPort());	
-		//window.setSize(new Dimension(1000, 750));
-		window.setMinimumSize(new Dimension(400, 300));
-		
-		
 		Toolkit t = Toolkit.getDefaultToolkit(); 
 		Dimension d = t.getScreenSize(); 
-		int x = (int) (d.getWidth() - 1000) / 2 ;				// d.getWidth() gesamte Bildschirmbreite
-		//int y = (int) (d.getHeight() - 750) / 2;					// Zentrum des Bildschirms berechnen
+		int x = (int) (d.getWidth() - 1000) / 2 ;				// d.getWidth() gesamte Bildschirmbreite (Zentrum des Bildschirms berechnen)
+		
+		Chat window = new Chat();
+		window.setTitle("Chat - " + Facade.getName() + " - " + Facade.getPort());	
+		window.setMinimumSize(new Dimension(700, 320));
 		window.setBounds(x, 0, 1000, 750);
 		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -250,65 +233,50 @@ public class Chat extends JFrame {
 		alles.add(content);
 		
 		
-		// Befehlsbuttons mit ChatController verknüpfen, um Funktionen zu setzen
+		// Befehlsbuttons mit ChatController verknüpfen, um Funktionen im ChatController zu setzen
 		btnConnect.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent arg0) {		
 				controller.btnConnect();
-				
 			}
 		});
 		
 		btnDisconnect.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				controller.btnDisconnect();
-				
+			public void actionPerformed(ActionEvent arg0) {		
+				controller.btnDisconnect();	
 			}
 		});
 		
 		btnExit.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent arg0) {		
 				controller.btnExit();
-				
 			}
 		});
 		
 		btnM.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent arg0) {		
 				controller.btnM();
-				
 			}
 		});
 		
 		btnMx.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				controller.btnMx();
-				
+			public void actionPerformed(ActionEvent arg0) {	
+				controller.btnMx();	
 			}
 		});
 		
-		//Sendenbutton mit ChatController verknüpfen, um Funktionen zu setzen
+		// Sendenbutton mit ChatController verknüpfen, um Funktionen zu setzen
 		btnOk.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent arg0) {		
 				controller.btnOk();
-				
 			}
 		});
-		
-		
-		
-				
+					
 		// Bei ENTER-Taste gleiche Aktion wie bei btnOk
 	    KeyListener tfKeyListener = new KeyAdapter() {
 	        public void keyPressed(KeyEvent evt) {
@@ -317,6 +285,7 @@ public class Chat extends JFrame {
 	        }
 	    };
 	    
+	    //
 	    addWindowListener(new WindowAdapter()
         {
             @Override
@@ -326,14 +295,7 @@ public class Chat extends JFrame {
             		e.getWindow().dispose();
             }
         });
-	    
-	    
-	    
-	    textFeld.addKeyListener(tfKeyListener);
-		
-		
-		
+    
+	    textFeld.addKeyListener(tfKeyListener);		
 	}
-
-	
 }
