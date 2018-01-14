@@ -10,7 +10,6 @@ INHALTSVERZEICHNIS
 2. UNICORN BENUTZEN - SCHRITT FÜR SCHRITT ANLEITUNG
 3. DESIGNENTSCHEIDUNGEN
 4. AUFGABENVERTEILUNG DER KLASSEN
-5. BEISPIELSZENARIEN - INTERAKTIONEN DER KLASSEN/OBJEKTE
 
 -------------------------------------------------------------------------------------
 1. VORRAUSSETZUNG ZUR NUTZUNG VON UNICORN
@@ -136,30 +135,50 @@ Verbindungen steht, bzw. gerade erstellt wird, wird eine neue Factory mit dieser
 angelegt.
 
 CONNECTION_FACTORY:
+Die ConnectionFactory erstellt Connection Objekte. Es gibt zwei Szenarien:
+
+1. Eine Verbindung soll seitens des Nutzers aufgebaut werden:
+
+Zu diesem Zeitpunkt sind jedoch nur IP-Adresse und Port des Kommunikationspartners bekannt.
+Factory wartet desshalb solange ab bis entweder der "Antwort" Poke des Peers ankommt bwz.
+der timeout eintritt.
+
+2. Eine Verbindung soll durch ein reinkommendes Poke eines unbekannten Peers 
+   erstellt werden:
+   
+   Zu diesem Zeitpunkt sind alle für die Verbndung notwendigen Daten IP-Adresse, Port
+   und Session Name des Kommunikationspartners gegeben. Somit erstellt die Factory
+   die Verbindung sofort und sendet einen Poke von sich zurück.
 
 SESSION_MANAGER:
+Der SessionManager verwaltet alle gerade im Verbindungsaufbau bedindlichen Connections
+(in Form einer Factory List) und verwaltet alle Informationen der eigenen Instanz wie
+z.B. SessionName, IP und Port.
 
 -> Kommunikation mit Benutzerschnittstelle:
 
 FACADE:
+Facade fasst alle Methoden des Chat Models zu einer Schnittstelle zusammen.
+Somit muss von außerhalb keinerlei Kenntnisse über die Interaktion der inneren
+Klassen bzw. deren Aufbau bestehen um die Funktionen nutzen zu können. 
+Zusätzlich implementiert Facade ein Observer Design Pattern, mit welchem 
+sich Interessenten bei der Facade anmelden können, um über Änderungen 
+benachrichtigt zu werden.
 
 I_FACADE_OBSERVER:
+Stellt Methoden zur Verfügung, über welche die Facade die Interessenten benachrichtigen 
+kann. Es wird zwischen update() und update(Connection conn) unterschieden:
+
+update() wird aufgerufen, wenn sich veränderungen bei einem Verbindungsstatus einer
+Connection ergeben haben, z.B. Ein Peer wurde hinzugefügt oder entfernt.
+
+update (Connection conn) wird aufgerufen, wenn eine neue Nachricht bei einer Verbindung 
+eingegangen ist. Hierbei übergibt sich die entsprechende verbindung selbst.
 
 -> Weitere Klassen:
 
 SYNTAX_CHECKER:
+Stellt eine Reihe von statischen Methoden zur verfügung, womit geprüft werden kann,
+ob z.B. IP Adressen ein einem String Syntaktisch korrekt dargestellt sind.
+(und ähnliches)
 
--------------------------------------------------------------------------------------
-5. BEISPIELSZENARIEN - INTERAKTIONEN DER KLASSEN/OBJEKTE
--------------------------------------------------------------------------------------
-1. Ein unbekanntes POKE erreicht den ServerPortListener:
-
-2. Der Benutzer sendet ein CONNECT Befehl
-
-3. Der Benutzer will eine Nachricht senden:
-
-4. Eine DISCONNECT Nachricht trudelt ein:
-
-5. Der Benutzer hat keine Lust mehr:
-
-6. Eine ungültige Nachricht trudelt ein:
