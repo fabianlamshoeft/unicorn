@@ -73,19 +73,19 @@ public class ChatController implements IFacadeObserver{
 			chat.dispose();
 			System.exit(0);
 		}
-		else if (befehl.startsWith("M")) {
-			String [] befehlArgu = befehl.split(" ", 3);
-			if (SyntaxChecker.isWellFormedSessionName(befehlArgu[1])) {
-				Facade.sendMessage(befehlArgu[1], befehlArgu[2]);
-				chat.getTextFeld().setText("");
-			}
-		}
 		else if (befehl.startsWith("MX")) {
 			String [] befehlArgu = befehl.split(" ", 4);
 			if (SyntaxChecker.isWellFormedIpAdress(befehlArgu[1]) &&
 				SyntaxChecker.isPortNumber(befehlArgu[2])) {
 				int port = Integer.parseInt(befehlArgu[2]);
 				Facade.sendMessage(befehlArgu[1], port, befehlArgu[3]);
+				chat.getTextFeld().setText("");
+			}
+		}
+		else if (befehl.startsWith("M")) {
+			String [] befehlArgu = befehl.split(" ", 3);
+			if (SyntaxChecker.isWellFormedSessionName(befehlArgu[1])) {
+				Facade.sendMessage(befehlArgu[1], befehlArgu[2]);
 				chat.getTextFeld().setText("");
 			}
 		}

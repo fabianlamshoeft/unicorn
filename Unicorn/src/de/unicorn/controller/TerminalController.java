@@ -47,27 +47,29 @@ public class TerminalController extends Thread implements IFacadeObserver{
 					String[] a = entry.split(" ");
 					System.out.println("Sending POKE...");
 					Facade.connect(a[1], Integer.parseInt(a[2]));
-					
-					
+
+				}else if(entry.startsWith("MX")) {
+
+					String[] a = entry.split(" ", 4);
+					System.out.println("Sending Message...");
+					Facade.sendMessage(a[1], Integer.parseInt(a[2]), a[3]);
+
 				}else if(entry.startsWith("M")) {
-					
+
 					String[] a = entry.split(" ", 3);
 					System.out.println("Sending Message...");
 					String message = a[2];
 					Facade.sendMessage(a[1], message);
 					
-				}else if(entry.startsWith("MX")) {
-					
-					String[] a = entry.split(" ", 4);
-					System.out.println("Sending Message...");
-					Facade.sendMessage(a[1], Integer.parseInt(a[2]), a[3]);
-					
-					
 				}else if (entry.startsWith("DISCONNECT")) {
+					
 					Facade.disconnect();
+				
 				}else if (entry.startsWith("EXIT")) {
+					
 					Facade.exit();
 					isRunning = false;
+				
 				}
 				
 				
