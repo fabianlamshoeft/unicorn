@@ -73,11 +73,13 @@ public class Chat extends JFrame {
 	public Chat(String arg0) throws HeadlessException {
 		super(arg0);
 		setUpElements();
+		controller = new ChatController(this);
 	}
 
 	public Chat(String arg0, GraphicsConfiguration arg1) {
 		super(arg0, arg1);
 		setUpElements();
+		controller = new ChatController(this);
 	}
 	
 	public void newScreen() {
