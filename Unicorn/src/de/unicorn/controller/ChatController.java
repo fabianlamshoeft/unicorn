@@ -110,6 +110,7 @@ public class ChatController implements IFacadeObserver{
 		String [] realList = new String [list.size()];
 		realList = list.toArray(realList);
 		
+		
 		chat.getNachrichten().setListData(realList);
 		
 	}

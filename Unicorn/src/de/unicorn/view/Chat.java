@@ -84,7 +84,7 @@ public class Chat extends JFrame {
 	
 	public static void newScreen() {
 		Chat window = new Chat();
-		window.setTitle("Chat – " + Facade.getName() + " – " + Facade.getPort());	
+		window.setTitle("Chat - " + Facade.getName() + " - " + Facade.getPort());	
 		//window.setSize(new Dimension(1000, 750));
 		window.setMinimumSize(new Dimension(400, 300));
 		
@@ -204,6 +204,7 @@ public class Chat extends JFrame {
 		
 		nachrichten.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		nachrichten.setSelectionForeground(Color.decode("0x1E647F"));
+		nachrichten.setForeground(Color.decode("0x1E647F"));
 		
 		JPanel chatbereich = new JPanel();
 		chatbereich.setBackground(Color.decode("0xFFFFFF"));
