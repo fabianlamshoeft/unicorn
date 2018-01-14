@@ -29,7 +29,7 @@ public class LoginController {
 				
 				login.window.setVisible(false);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Bitte korrekte Daten angeben");
+				JOptionPane.showMessageDialog(null, "Log In fehlgeschlagen. Bitte korrekte Daten eingeben.");
 			}
 		
 		}
@@ -39,59 +39,26 @@ public class LoginController {
 			if(!SyntaxChecker.isWellFormedSessionName(login.textfieldName.getText()))
 			{
 				login.textfieldName.setText("");
-				JOptionPane.showMessageDialog(null, "Bitte korrekten Namen angeben!");
-			}
-			
-			if(!SyntaxChecker.isPortNumber(login.textfieldPort.getText()))
-			{
-				if(!SyntaxChecker.isNummeric(login.textfieldPort.getText()))
+				if(!SyntaxChecker.isPortNumber(login.textfieldPort.getText()))
 				{
-					JOptionPane.showMessageDialog(null, "Der Port muss eine Zahl sein!");
 					login.textfieldPort.setText("");
+					JOptionPane.showMessageDialog(null,
+							"Der Name darf nicht leer sein oder Leerzeichen oder Zeilenumbrüche enthalten und die Portnummer muss zwischen 1024 und 65535 liegen!");
 				}
 				else
-				// Ist ein Zahl außerhalb der erlaubten Grenze
 				{
-					JOptionPane.showMessageDialog(null, "Der Port muss eine Zahl zwischen 1024 und 49151 sein!");
-					login.textfieldPort.setText("");
+					JOptionPane.showMessageDialog(null, "Der Name darf nicht leer sein oder Leerzeichen oder Zeilenumbrüche enthalten");
 				}
-				
-				
 			}
-			
-			
+			else
+			{
+				login.textfieldPort.setText("");
+				JOptionPane.showMessageDialog(null, "Der Port muss eine Zahl zwischen 1024 und 65535 sein!");
+			}
 		}
+
+
 		
-		
-		
-//		if (SyntaxChecker.isWellFormedSessionName(login.textfieldName.getText()) && 
-//			SyntaxChecker.isNummeric(login.textfieldPort.getText()) &&
-//			Integer.parseInt(login.textfieldPort.getText()) > 1023 &&
-//			Integer.parseInt(login.textfieldPort.getText()) < 49152) {
-//			
-//			try {
-//				Facade.startUp(login.textfieldName.getText(), InetAddress.getLocalHost().getHostAddress(), Integer.parseInt(login.textfieldPort.getText()));
-//				Chat neuesFenster = new Chat();
-//				neuesFenster.newScreen();
-//				
-//				login.window.setVisible(false);
-//			} catch (Exception e) {
-//				JOptionPane.showMessageDialog(null, "Bitte korrekte Daten angeben");
-//			}
-//		}
-//		else {
-////			JOptionPane.showMessageDialog(null, "Bitte korrekte Daten angeben!");
-//			if (!SyntaxChecker.isWellFormedSessionName(login.textfieldName.getText())) {
-//				login.textfieldName.setText("");
-//				JOptionPane.showMessageDialog(null, "Bitte korrekten Namen angeben!");
-//			}
-//			if (SyntaxChecker.isNummeric(login.textfieldPort.getText()) &&
-//				!(Integer.parseInt(login.textfieldPort.getText()) > 1023) &&
-//				!(Integer.parseInt(login.textfieldPort.getText()) < 49152)) {
-//				JOptionPane.showMessageDialog(null, "Der Port muss eine Zahl zwischen 1024 und 49151");
-//				login.textfieldPort.setText("");
-//			}
-//		}
 
 	}
 	// fÃ¼r jeden Button eigene Methode login.
