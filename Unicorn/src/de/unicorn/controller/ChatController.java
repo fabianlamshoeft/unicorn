@@ -42,7 +42,7 @@ public class ChatController implements IFacadeObserver{
 	}														//      \
 															//	
 	public void btnExit() {									//	Wenn Button gedrückt (via ActionListener in Chat),
-		chat.getTextFeld().setText("EXIT");					//	dann Text im TextFeld (Eingabzeile) auf in Methode
+		chat.getTextFeld().setText("EXIT");					//	dann Text im TextFeld (Eingabezeile) auf in Methode
 	}														//	angegbenen Text gesetzt.
 															//
 	public void btnM() {										//      /
@@ -115,7 +115,7 @@ public class ChatController implements IFacadeObserver{
 			}
 			else if (letzterEmpf.startsWith("MX")) {
 				String [] letzterEmpfArr = letzterEmpf.split(" ", 4);
-				if (SyntaxChecker.isWellFormedIpAdress(letzterEmpfArr[1]) &&
+				if (SyntaxChecker.isWellFormedIpAddress(letzterEmpfArr[1]) &&
 					SyntaxChecker.isPortNumber(letzterEmpfArr[2])) {
 					int port = Integer.parseInt(letzterEmpfArr[2]);
 					Facade.sendMessage(letzterEmpfArr[1], port, chat.getTextFeld().getText());
