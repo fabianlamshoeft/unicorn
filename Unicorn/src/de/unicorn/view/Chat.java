@@ -83,8 +83,7 @@ public class Chat extends JFrame {
 //	}
 	
 	public void newScreen() {
-		JFrame window = new Chat();
-		
+		Chat window = new Chat();
 		window.setTitle("Chat");	
 		//window.setSize(new Dimension(1000, 750));
 		window.setMinimumSize(new Dimension(400, 300));

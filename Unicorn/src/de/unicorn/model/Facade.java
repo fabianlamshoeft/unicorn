@@ -149,6 +149,7 @@ public class Facade {
 		Iterator <IFacadeObserver> it = obsList.iterator();
 		while(it.hasNext()) {
 			it.next().update();
+			System.out.println("update ... " + SessionManager.getSessionName() );
 		}
 		System.out.println("ich sage es allen weiter...");
 	}
