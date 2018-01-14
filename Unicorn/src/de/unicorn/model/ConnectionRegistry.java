@@ -76,6 +76,7 @@ public class ConnectionRegistry {
 	public static void remove(Connection conn) {
 		connections.remove(conn);
 		System.out.println("Verbindung aus der Liste entfernt: " + conn.getName());
+		Facade.notifyObservers();
 	}
 	
 	/**
