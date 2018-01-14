@@ -264,25 +264,25 @@ public class Chat extends JFrame {
 		btnConnect.addActionListener(new ActionListener() {		//\
 			@Override											// \
 			public void actionPerformed(ActionEvent arg0) {		//  \
-				controller.btnConnect();							//   \
+				controller.btnConnect();						//   \
 			}													//    \
 		});														//     \
 																//\
-		btnDisconnect.addActionListener(new ActionListener() {		// \
+		btnDisconnect.addActionListener(new ActionListener() {	// \
 			@Override											//  \
 			public void actionPerformed(ActionEvent arg0) {		//	 \
 				controller.btnDisconnect();						//    \
 			}													//     \
 		});														//\
 																// \
-		btnExit.addActionListener(new ActionListener() {			//  \
+		btnExit.addActionListener(new ActionListener() {		//  \
 			@Override											//	 \	
 			public void actionPerformed(ActionEvent arg0) {		//	  \	
 				controller.btnExit();							//		
 			}													//		Befehlsbuttons mittelst ActionListeners
 		});														//		mit ChatController verknüpfen, um
 																//		Funktionen im ChatController zu setzen.
-		btnM.addActionListener(new ActionListener() {				//
+		btnM.addActionListener(new ActionListener() {			//
 			@Override											//	   /
 			public void actionPerformed(ActionEvent arg0) {		//	  /
 				controller.btnM();								//   /
