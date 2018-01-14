@@ -56,7 +56,7 @@ public class ChatController implements IFacadeObserver{
 		String befehl = chat.getTextFeld().getText();
 		if (befehl.startsWith("CONNECT")) {
 			String [] befehlArgu = befehl.split(" ");
-			if (SyntaxChecker.isWellFormedIpAdress(befehlArgu[1]) &&
+			if (SyntaxChecker.isWellFormedIpAddress(befehlArgu[1]) &&
 				SyntaxChecker.isPortNumber(befehlArgu[2])) {
 				int port = Integer.parseInt(befehlArgu[2]);
 				Facade.connect(befehlArgu[1], port);
@@ -75,7 +75,7 @@ public class ChatController implements IFacadeObserver{
 		}
 		else if (befehl.startsWith("MX")) {
 			String [] befehlArgu = befehl.split(" ", 4);
-			if (SyntaxChecker.isWellFormedIpAdress(befehlArgu[1]) &&
+			if (SyntaxChecker.isWellFormedIpAddress(befehlArgu[1]) &&
 				SyntaxChecker.isPortNumber(befehlArgu[2])) {
 				int port = Integer.parseInt(befehlArgu[2]);
 				Facade.sendMessage(befehlArgu[1], port, befehlArgu[3]);

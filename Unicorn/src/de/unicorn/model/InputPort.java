@@ -55,7 +55,7 @@ public class InputPort extends Thread{
 				// diesen Listener benutzt
 				System.out.println(conn.getName() + ": Rohdaten = " + message);
 				if (message != null) {
-					conn.interpretIncommingMessage(message);
+					conn.interpretIncomingMessage(message);
 				}else {
 					reader.close();
 					in.close();

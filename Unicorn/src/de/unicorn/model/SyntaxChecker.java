@@ -36,7 +36,7 @@ public class SyntaxChecker {
 	 * @param ref String, welcher zum überprüfen übergeben wird.
 	 * @return gibt zurück, ob ein ref eine syntaktisch korrekte IP Adresse ist.
 	 */
-	public static boolean isWellFormedIpAdress(String ref) {
+	public static boolean isWellFormedIpAddress(String ref) {
 		
 		String [] b = ref.split("\\.");
 		if (b.length == 4) {

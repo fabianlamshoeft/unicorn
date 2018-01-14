@@ -15,9 +15,9 @@ public class ServerPortListener extends Thread{
 		try {
 			serverSocket = new ServerSocket(SessionManager.getServerListenerPort());
 			while (isRunning) {
-				Socket incommingRequest = serverSocket.accept();
+				Socket incomingRequest = serverSocket.accept();
 				
-				BufferedReader reader = new BufferedReader(new InputStreamReader(incommingRequest.getInputStream()));
+				BufferedReader reader = new BufferedReader(new InputStreamReader(incomingRequest.getInputStream()));
 				String message = reader.readLine();
 				
 				if (message.startsWith("POKE")) {
@@ -25,7 +25,7 @@ public class ServerPortListener extends Thread{
 					String [] pokeArguments = message.split(" ", 4);
 					// Poke Nachricht auf Gültigkeit prüfen. Falls ungültige Nachricht: ignorieren
 					if (SyntaxChecker.isWellFormedSessionName(pokeArguments[1])
-							&& SyntaxChecker.isWellFormedIpAdress(pokeArguments[2])
+							&& SyntaxChecker.isWellFormedIpAddress(pokeArguments[2])
 							&& SyntaxChecker.isPortNumber(pokeArguments[3])) {
 						
 						// Peer noch nicht in der Factory oder Liste?
@@ -39,14 +39,14 @@ public class ServerPortListener extends Thread{
 							// Rest Infos für Factory zum erstellen übergeben
 //							System.out.println("ServerPortListener: Poke Informationen ergänzen...");
 							if (acceptingNewConnections()) {
-								SessionManager.getFactory(pokeArguments[2], Integer.parseInt(pokeArguments[3])).createWithOutgoingPoke(pokeArguments[1], incommingRequest);
+								SessionManager.getFactory(pokeArguments[2], Integer.parseInt(pokeArguments[3])).createWithOutgoingPoke(pokeArguments[1], incomingRequest);
 							}
 						}else {
 							// Neue Factory hinzufügen
 //							System.out.println("ServerPortListener: Neues Poke! Verbindung hinzufügen!");
 							if (acceptingNewConnections()) {
 								ConnectionFactory fac = new ConnectionFactory();
-								fac.setFactoryData(pokeArguments[1], pokeArguments [2], Integer.parseInt(pokeArguments[3]),incommingRequest);
+								fac.setFactoryData(pokeArguments[1], pokeArguments [2], Integer.parseInt(pokeArguments[3]),incomingRequest);
 								SessionManager.addFactory(fac);
 								fac.createWithIncomingPoke();
 							}

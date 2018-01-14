@@ -4,11 +4,37 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * Ist nur für die Erstellung von Connections zuständig und löscht sich, wenn ihre Arbeit getan ist.
+ * Sie kümmert sich sowohl um das Szenario, dass ein Poke gesendet wurde und dann auf den Rückpoke
+ * gewartet wird, als auch um das Szenario, dass ein Poke direkt ankommt. In diesem Fall wird die
+ * Connection direkt erstellt.
+ * 
+ * @author Simon
+ *
+ */
 public class ConnectionFactory {
+	
+	/**
+	 * Das zum Schluss an die ConnectionRegistry zu übergebende Objekt, dass in dieser Klasse
+	 * fertiggestellt wird.
+	 */
 	private Connection conn;
+	/**
+	 * Ein Thread für einen Timer, um ein Timeout zu senden, wenn er auftritt.
+	 */
 	private Thread timer;
+	/**
+	 * Variable, um anzuzeigen, ob ein Poke angekommen ist.
+	 */
 	private boolean pokeArrived = false;
+	/**
+	 * Variable, um einen Timeout anzuzeigen.
+	 */
 	private boolean timeout = false;
+	/**
+	 * Konstante, die den Zeitpunkt der Erstellung der Factory festhält.
+	 */
 	private long creationTime;
 	
 	/**
@@ -22,7 +48,7 @@ public class ConnectionFactory {
 	 * welches den Session Namen enthÃ¤lt. Die Ankunft des RÃ¼ckpokes wird dann der Factory durch die Methode
 	 * createWithIncommingPoke signalisiert.
 	 * @param ip IP-Adresse der zu erstellenden Verbindung
-	 * @param port Port der zu ersteellenden Verbindung
+	 * @param port Port der zu erstellenden Verbindung
 	 * @param out Das Socket, Ã¼ber welchen die erste PokeNachricht gesendet wurde. 
 	 */
 	public void setFactoryData(String ip, int port, Socket out) {
@@ -61,14 +87,19 @@ public class ConnectionFactory {
 		startTimer();
 	}
 	/**
+	 * Fügt die für eine Verbindung nötigen Daten in das zu erstellende Connection Objekt ein.
 	 * 
-	 * @param name
-	 * @param ip
-	 * @param port
-	 * @param in
+	 * Diese Methode wird aufgerufen, wenn ein ConnectionPoke ankommt. In diesem Fall wird
+	 * die Factory erstellt und wartet nicht weiter auf einen Rückpoke.
+	 * Hier werden die im Parameter übergebenen Werte der zu erstellenden Connection zugewiesen
+	 * und die Ports werden erstellt.
+	 * 
+	 * @param name Name des Peers der zu erstellenden Verbindung
+	 * @param ip IP-Adresse der zu erstellenden Verbindung
+	 * @param port Port der zu erstellenden Verbindung
+	 * @param in Socket, über den die Poke-Nachricht ankommt.
 	 */
 	public void setFactoryData(String name, String ip, int port, Socket in) {
-//		System.out.println("Factory mit eingegangenem POKE");
 		conn = new Connection();
 		conn.setIn(new InputPort(in, conn));
 		conn.setName(name);
@@ -101,14 +132,16 @@ public class ConnectionFactory {
 		return conn;
 	}
 	/**
+	 * Vollendet die zu erstellende Connection, fügt sie der Liste von Connections in
+	 * der ConnectionRegistry hinzu und löscht sich dann selbst.
 	 * 
+	 * Soll aufgerufen werden, wenn ein Rückpoke ankommt.
 	 */
 	public void createWithIncomingPoke()
 	{
 		conn.updatePokeTime();
 		conn.getIn().startListener();
 		ConnectionRegistry.addConnection(conn);
-//		System.out.println("Factory: Erstelle sofort");
 		ConnectionRegistry.getOnwardTransmitter().forwardPokeMessage(conn, 
 				conn.getName(), conn.getIP(), conn.getPeerServerPort());
 		destroy();
@@ -116,6 +149,9 @@ public class ConnectionFactory {
 	}
 	
 	/**
+	 * Wenn der
+	 * 
+	 * Soll aufgerufen werden, wenn sich der Peer mit einem anderen Peer verbinden will.
 	 * 
 	 * @param name
 	 * @param in
@@ -145,11 +181,15 @@ public class ConnectionFactory {
 			
 		}
 	}
-	
+	/**
+	 * löscht diese Factory aus der Liste des SessionManagers.
+	 */
 	private void destroy() {
 		SessionManager.removeFactory(this);
 	}
-	
+	/**
+	 * Startet den Timer.
+	 */
 	private void startTimer()
 	{
 		timer.start();

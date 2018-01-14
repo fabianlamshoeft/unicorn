@@ -2,6 +2,14 @@ package de.unicorn.model;
 
 import java.util.LinkedList;
 
+/**
+ * Die eigentliche Verbindung zweier Peers. Sie beinhaltet die Ports zum Senden
+ * und Empfangen und zus�tzlich alle n�tigen Informationen �ber den Partnerpeer.
+ * F�r jeden Kommunikationspartner gibt es eine eigene Instanz von Connection.
+ * 
+ * @author Simon
+ *
+ */
 public class Connection {
 
 	/**
@@ -34,46 +42,33 @@ public class Connection {
 	 */
 	private String ip;
 
-
+	// Getter und Setter:
 	public String getName() {
 		return name;
 	}
-
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
-
 	public InputPort getIn() {
 		return in;
 	}
-
-
-
 	public void setIn(InputPort in) {
 		this.in = in;
 	}
 
-
-
 	public OutputPort getOut() {
 		return out;
 	}
-
-
-
 	public void setOut(OutputPort out) {
 		this.out = out;
 	}
 
-
-
 	public LinkedList<String> getHistory() {
 		return history;
 	}
+	
+	
 	/**
 	 * Aktualisiert die PokeTime
 	 */
@@ -89,7 +84,9 @@ public class Connection {
 	public int getPeerServerPort() {
 		return peerServerPort;
 	}
-
+	public void setPeerServerPort(int peerServerPort) {
+		this.peerServerPort = peerServerPort;
+	}
 
 	public String getIP()
 	{
@@ -97,10 +94,6 @@ public class Connection {
 	}
 	public void setIP(String newIp) {
 		this.ip = newIp;
-	}
-
-	public void setPeerServerPort(int peerServerPort) {
-		this.peerServerPort = peerServerPort;
 	}
 
 
@@ -119,7 +112,7 @@ public class Connection {
 	 * Stellt fest um was für eine Nachricht es sich handelt und führt abhängig davon die passenden Operationen aus.
 	 * @param message einkommende Nachricht
 	 */
-	public void interpretIncommingMessage(String message) {
+	public void interpretIncomingMessage(String message) {
 		
 		if (message.startsWith("POKE")) {
 			// Fall 1: Es ist eine Poke Nachricht
@@ -128,7 +121,7 @@ public class Connection {
 			
 			// Poke Nachricht auf Gültigkeit prüfen. Ist die Syntax der Nachricht falsch, wird die Poke Nachricht ignoriert.
 			if (SyntaxChecker.isWellFormedSessionName(pokeArguments[1]) 
-					&& SyntaxChecker.isWellFormedIpAdress(pokeArguments[2]) && SyntaxChecker.isPortNumber(pokeArguments[3])) {
+					&& SyntaxChecker.isWellFormedIpAddress(pokeArguments[2]) && SyntaxChecker.isPortNumber(pokeArguments[3])) {
 				
 				if (pokeArguments[1].equals(name) && pokeArguments[2].equals(ip) && Integer.parseInt(pokeArguments[3]) == peerServerPort) {
 					// Poke Parameter entsprechen den Daten des Kommunikationspartners: PokeTime akutalisieren
@@ -174,7 +167,7 @@ public class Connection {
 			
 
 			if (SyntaxChecker.isWellFormedSessionName(messageArguments[1]) 
-					&& SyntaxChecker.isWellFormedIpAdress(messageArguments[2]) && SyntaxChecker.isPortNumber(messageArguments[3])
+					&& SyntaxChecker.isWellFormedIpAddress(messageArguments[2]) && SyntaxChecker.isPortNumber(messageArguments[3])
 					&& SyntaxChecker.isWellFormedMessage(messageArguments[4])) {
 				// Überprüfen, ob der angegebene Peer in der Pokenachricht der Verbindung entspricht, welche über diesen Port senden darf.
 				// Falls ungültig: Nachricht ignorieren
@@ -199,7 +192,7 @@ public class Connection {
 			String [] discArguments = message.split(" ", 4);
 			// Disconnect Nachricht auf Gültigkeit prüfen. Falls ungültige Nachricht: ignorieren
 			if (SyntaxChecker.isWellFormedSessionName(discArguments[1]) 
-					&& SyntaxChecker.isWellFormedIpAdress(discArguments[2]) && SyntaxChecker.isPortNumber(discArguments[3])) {
+					&& SyntaxChecker.isWellFormedIpAddress(discArguments[2]) && SyntaxChecker.isPortNumber(discArguments[3])) {
 				
 				/*
 				 * Falls die Disconnect Nachricht die Parameter des verbundenen Peers trägt: Verbindung schließen
