@@ -21,8 +21,6 @@ public class ConnectionRegistry {
 	 * Fügt die übergebende Verbindung der Liste hinzu. 
 	 * @param conn Verbindung, welche hinzugefügt werden soll.
 	 */
-	
-	
 	public static void addConnection(Connection conn) {
 		connections.add(conn);
 		Facade.notifyObservers();
@@ -84,7 +82,6 @@ public class ConnectionRegistry {
 	 * @param ip IP-Adresse
 	 * @param port Port
 	 */
-	
 	public static void remove (String name, String ip, int port) {
 		Iterator<Connection> it = connections.iterator();
 		Connection conn;

@@ -115,6 +115,11 @@ public class ConnectionFactory {
 		
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * @param in
+	 */
 	public void createWithOutgoingPoke(String name, Socket in)
 	{
 		if (!timeout) {
