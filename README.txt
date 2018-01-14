@@ -102,7 +102,7 @@ zu können.
 CONNECTION:
 Die Klasse Connection verwaltet die Verbindungsinformationen zu einem einzelnen Peer,
 darunter SessionName, IP-Adresse und Port. Zudem protokolliert Connection alle
-eingehenden und Ausgehenden Nachrichten in einer History mit. Die Verwaltung der 
+eingehenden und ausgehenden Nachrichten in einer History mit. Die Verwaltung der 
 eingehenden und ausgehenden Sockets wird an zwei weitere Klassen weiterdeligiert:
 InputPort und OutputPort.
 
@@ -122,8 +122,8 @@ sendMessage und sendDisconnect.
 ConnectionRegistry befindet:
 
 CONNECTION_REGISTRY:
-Verwaltet die Liste der aktiven Verbindungen. Hierfür werden Methoden zum hinzufügen,
-ausgeben und löschen einzelner Verbindungen zur Verfügung gestellt. Alle Attribute 
+Verwaltet die Liste der aktiven Verbindungen. Hierfür werden Methoden zum Hinzufügen,
+Ausgeben und Löschen einzelner Verbindungen zur Verfügung gestellt. Alle Attribute 
 und Methoden der Klasse sind statisch, um einen zentralen Zugriffspunkt für andere
 Klassen zu realisieren. Die Verwaltung der Liste übernehmen die Klassen 
 ConnectionListManager und OnwardTransmitter. So ist gewärleistet, dass ConnectionRegisty
@@ -132,7 +132,7 @@ alleinig zum "speichern" der Verbindungen genutzt wird.
 -> Listenverwaltung:
 
 CONNECTION_LIST_MANAGER:
-Der ConnectionListManager läuft alle 30 sekunden über die Liste aktiver Verbindungen
+Der ConnectionListManager läuft alle 30 Sekunden über die Liste aktiver Verbindungen
 in der ConnectionRegistry und führt folgende Aktionen aus:
 
 - Löschen veralteter Verbindungen, dessen letzter Poke länger als eine Minute
@@ -168,7 +168,7 @@ Die ConnectionFactory erstellt Connection Objekte. Es gibt zwei Szenarien:
 1. Eine Verbindung soll seitens des Nutzers aufgebaut werden:
 
 Zu diesem Zeitpunkt sind jedoch nur IP-Adresse und Port des Kommunikationspartners bekannt.
-Factory wartet desshalb solange ab bis entweder der "Antwort" Poke des Peers ankommt bwz.
+Factory wartet desshalb solange ab, bis entweder der "Antwort" Poke des Peers ankommt bwz.
 der timeout eintritt.
 
 2. Eine Verbindung soll durch ein reinkommendes Poke eines unbekannten Peers 
@@ -201,12 +201,12 @@ update() wird aufgerufen, wenn sich veränderungen bei einem Verbindungsstatus e
 Connection ergeben haben, z.B. Ein Peer wurde hinzugefügt oder entfernt.
 
 update (Connection conn) wird aufgerufen, wenn eine neue Nachricht bei einer Verbindung 
-eingegangen ist. Hierbei übergibt sich die entsprechende verbindung selbst.
+eingegangen ist. Hierbei übergibt sich die entsprechende Verbindung selbst.
 
 -> Weitere Klassen:
 
 SYNTAX_CHECKER:
 Stellt eine Reihe von statischen Methoden zur verfügung, womit geprüft werden kann,
-ob z.B. IP Adressen ein einem String Syntaktisch korrekt dargestellt sind.
+ob z.B. IP Adressen in einem String syntaktisch korrekt dargestellt sind.
 (und ähnliches)
 
